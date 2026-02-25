@@ -1,0 +1,1350 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BF Outdoor Services • Pool Maintenance Checklist</title>
+  <meta name="theme-color" content="#0b1220" />
+  <style>
+    :root{
+      --bg:#0b1220; --card:#121b2e; --line:rgba(255,255,255,.12);
+      --text:#eef2ff; --muted:rgba(238,242,255,.72);
+      --ok:#22c55e; --bad:#ef4444; --blue:#3b82f6;
+      --shadow: 0 18px 50px rgba(0,0,0,.35);
+      --radius:18px; --radius2:14px;
+      --font: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:var(--font); color:var(--text);
+      background:
+        radial-gradient(1000px 600px at 20% -10%, rgba(59,130,246,.35), transparent 60%),
+        radial-gradient(900px 600px at 90% 0%, rgba(34,197,94,.20), transparent 55%),
+        radial-gradient(1200px 700px at 50% 110%, rgba(251,191,36,.14), transparent 55%),
+        var(--bg);
+    }
+    .wrap{max-width:1200px; margin:22px auto; padding:0 14px 40px;}
+    .topbar{
+      display:flex; gap:14px; align-items:center; justify-content:space-between;
+      padding:14px; border:1px solid var(--line); border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(18,27,46,.92), rgba(15,23,42,.88));
+      box-shadow:var(--shadow);
+      flex-wrap:wrap;
+    }
+    .brand{display:flex; gap:12px; align-items:center; min-width:260px}
+    .mark{
+      width:48px; height:48px; border-radius:14px;
+      border:1px solid var(--line); background:rgba(255,255,255,.06);
+      display:flex; align-items:center; justify-content:center;
+      font-weight:900; letter-spacing:.5px;
+    }
+    .title h1{font-size:18px; margin:0; letter-spacing:.2px}
+    .title p{margin:3px 0 0; font-size:12px; color:var(--muted)}
+    .actions{display:flex; flex-wrap:wrap; gap:8px; justify-content:flex-end}
+    button, .btn{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.06);
+      color:var(--text);
+      padding:10px 12px;
+      border-radius:12px;
+      cursor:pointer;
+      font-weight:800;
+      font-size:13px;
+      letter-spacing:.2px;
+      transition:transform .05s ease, background .2s ease, border-color .2s ease;
+      user-select:none;
+    }
+    button:hover{background:rgba(255,255,255,.10)}
+    button:active{transform:translateY(1px)}
+    .primary{
+      background:linear-gradient(180deg, rgba(59,130,246,.95), rgba(37,99,235,.92));
+      border-color:rgba(59,130,246,.45);
+    }
+    .primary:hover{background:linear-gradient(180deg, rgba(59,130,246,1), rgba(37,99,235,1))}
+    .success{
+      background:linear-gradient(180deg, rgba(34,197,94,.95), rgba(22,163,74,.92));
+      border-color:rgba(34,197,94,.45);
+    }
+    .success:hover{background:linear-gradient(180deg, rgba(34,197,94,1), rgba(22,163,74,1))}
+    .danger{
+      background:linear-gradient(180deg, rgba(239,68,68,.92), rgba(220,38,38,.92));
+      border-color:rgba(239,68,68,.35);
+    }
+    .danger:hover{background:linear-gradient(180deg, rgba(239,68,68,1), rgba(220,38,38,1))}
+    .ghost{background:rgba(255,255,255,.04)}
+
+    .grid{margin-top:14px; display:grid; grid-template-columns: 1fr; gap:14px;}
+    @media(min-width:980px){ .grid{grid-template-columns: 1.15fr .85fr;} }
+
+    .card{
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(18,27,46,.92), rgba(15,23,42,.88));
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .card h2{
+      margin:0; padding:14px 14px 10px;
+      font-size:15px; letter-spacing:.2px;
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      border-bottom:1px solid var(--line);
+      background:rgba(0,0,0,.12);
+      flex-wrap:wrap;
+    }
+    .card .sub{font-size:12px; color:var(--muted); font-weight:650}
+    .content{padding:14px}
+    .row{display:grid; grid-template-columns: 1fr; gap:10px; margin-bottom:10px}
+    @media(min-width:640px){ .row.two{grid-template-columns:1fr 1fr} }
+    @media(min-width:780px){ .row.three{grid-template-columns:1fr 1fr 1fr} }
+    label{display:block; font-size:12px; color:var(--muted); margin:0 0 6px}
+    input, select, textarea{
+      width:100%;
+      padding:10px 11px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(0,0,0,.18);
+      color:var(--text);
+      outline:none;
+    }
+    textarea{min-height:92px; resize:vertical}
+    input::placeholder, textarea::placeholder{color:rgba(238,242,255,.40)}
+    .divider{height:1px; background:var(--line); margin:12px 0}
+    .small{font-size:12px; color:var(--muted)}
+    .pill{
+      display:inline-flex; gap:8px; align-items:center;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.05);
+      padding:7px 10px; border-radius:999px;
+      font-size:12px; color:var(--muted); margin-top:8px;
+    }
+
+    .checklist{display:grid; grid-template-columns:1fr; gap:10px;}
+    .item{
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.04);
+      border-radius:var(--radius2);
+      padding:10px;
+    }
+    .itemTop{display:flex; gap:10px; align-items:flex-start;}
+    .itemTop input[type="checkbox"]{width:18px; height:18px; margin-top:2px; accent-color: var(--ok);}
+    .itemTitle{font-weight:900; font-size:13px; margin:0;}
+    .itemHelp{margin:2px 0 0; font-size:12px; color:var(--muted);}
+    .miniRow{margin-top:8px; display:grid; grid-template-columns:1fr; gap:8px;}
+    @media(min-width:680px){ .miniRow.two{grid-template-columns:1fr 1fr} }
+
+    .rightCol .card{position:sticky; top:14px}
+
+    .table{
+      width:100%; border-collapse:collapse;
+      overflow:hidden; border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+    }
+    .table th,.table td{
+      padding:10px; border-bottom:1px solid rgba(255,255,255,.10);
+      vertical-align:top; font-size:12px;
+    }
+    .table th{color:var(--muted); text-align:left; background:rgba(0,0,0,.16); font-weight:900}
+    .table tr:last-child td{border-bottom:none}
+    .table input, .table select{padding:8px 9px; border-radius:10px;}
+    .inlineBtns{display:flex; gap:8px; flex-wrap:wrap}
+
+    /* Capture area */
+    .captureWrap{ padding:14px; }
+    .capture{
+      background:linear-gradient(180deg, rgba(18,27,46,.94), rgba(15,23,42,.90));
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:var(--radius);
+      padding:14px;
+    }
+    .captureHeader{
+      display:flex; gap:12px; align-items:flex-start; justify-content:space-between;
+      border-bottom:1px solid rgba(255,255,255,.12);
+      padding-bottom:10px; margin-bottom:12px;
+    }
+    .captureHeader h3{margin:0; font-size:14px}
+    .captureHeader p{margin:2px 0 0; font-size:12px; color:var(--muted)}
+    .printHint{font-size:12px; color:var(--muted); text-align:right}
+
+    /* Photos */
+    .photoGrid{display:grid; grid-template-columns:1fr; gap:10px;}
+    @media(min-width:640px){ .photoGrid{grid-template-columns:1fr 1fr;} }
+    .photoBox{
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.04);
+      border-radius:14px;
+      padding:10px;
+    }
+    .photoTop{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px;}
+    .photoTop .name{font-weight:900; font-size:13px}
+    .thumb{
+      width:100%; aspect-ratio: 4 / 3;
+      border-radius:12px; border:1px solid rgba(255,255,255,.14);
+      background:rgba(0,0,0,.18);
+      overflow:hidden; display:flex; align-items:center; justify-content:center;
+    }
+    .thumb img{width:100%; height:100%; object-fit:cover; display:none;}
+    .thumb .placeholder{color:rgba(238,242,255,.55); font-size:12px; padding:10px; text-align:center;}
+
+    /* History */
+    .histTop{display:flex; gap:8px; flex-wrap:wrap; align-items:center; justify-content:space-between;}
+    .histTop .left{flex:1; min-width:200px;}
+    .histList{display:flex; flex-direction:column; gap:8px; margin-top:10px;}
+    .histItem{
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.04);
+      border-radius:14px;
+      padding:10px;
+      display:flex; gap:10px; align-items:flex-start; justify-content:space-between;
+    }
+    .histMeta{min-width:0}
+    .histMeta .t{font-weight:900; font-size:13px; margin:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+    .histMeta .s{margin:3px 0 0; font-size:12px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+    .histBtns{display:flex; gap:6px; flex-wrap:wrap; justify-content:flex-end}
+    .miniBtn{padding:8px 10px; border-radius:12px; font-size:12px; font-weight:900;}
+
+    /* Modal */
+    .modalBackdrop{
+      position:fixed; inset:0; background:rgba(0,0,0,.55);
+      display:none; align-items:center; justify-content:center;
+      padding:18px; z-index:9999;
+    }
+    .modal{
+      width:min(980px, 100%); max-height:85vh; overflow:auto;
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:18px;
+      background:linear-gradient(180deg, rgba(18,27,46,.98), rgba(15,23,42,.96));
+      box-shadow:var(--shadow);
+    }
+    .modalHead{
+      padding:14px; display:flex; align-items:center; justify-content:space-between; gap:10px;
+      border-bottom:1px solid rgba(255,255,255,.12);
+      background:rgba(0,0,0,.12);
+      flex-wrap:wrap;
+    }
+    .modalHead h3{margin:0; font-size:15px}
+    .modalBody{padding:14px}
+    .hintBox{
+      border:1px dashed rgba(255,255,255,.18);
+      background:rgba(255,255,255,.04);
+      border-radius:14px;
+      padding:10px;
+      margin-bottom:12px;
+    }
+    .twoCols{display:grid; grid-template-columns:1fr; gap:12px;}
+    @media(min-width:900px){ .twoCols{grid-template-columns:1fr 1fr 1fr;} }
+    .sectionEditor textarea{
+      min-height:240px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+    .sectionEditor h4{margin:0 0 8px; font-size:13px}
+
+    @media print{
+      body{background:#fff; color:#000}
+      .topbar, .rightCol{display:none !important}
+      .wrap{max-width:none; margin:0; padding:0}
+      .card{box-shadow:none}
+      .capture{border:1px solid #ccc; background:#fff}
+      .captureHeader p, .small{color:#333}
+      input, textarea, select{border:1px solid #aaa; background:#fff; color:#000}
+      .item{background:#fff}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <div class="mark" title="BF Outdoor Services">BF</div>
+        <div class="title">
+          <h1>Pool Maintenance Checklist</h1>
+          <p>Finish Visit saves history • Share Report opens Messages/Mail with the report image</p>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="ghost" id="btnCustomize" type="button">Customize Tasks</button>
+        <button class="ghost" id="btnNewVisit" type="button">New Visit</button>
+        <button class="success" id="btnFinish" type="button">Finish Visit / Save Record</button>
+
+        <button class="primary" id="btnShare" type="button">Share Report</button>
+        <button class="ghost" id="btnEmail" type="button">Compose Email</button>
+        <button class="ghost" id="btnText" type="button">Compose Text</button>
+
+        <button class="ghost" id="btnImage" type="button">Save as Image</button>
+        <button class="ghost" id="btnExport" type="button">Export JSON</button>
+        <label class="btn ghost" for="importFile" style="display:inline-flex;align-items:center;gap:8px;">
+          Import JSON
+        </label>
+        <input id="importFile" type="file" accept="application/json" style="display:none" />
+        <button class="danger" id="btnResetAll" type="button">Reset</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- LEFT -->
+      <div class="leftCol">
+        <div class="card">
+          <h2>1) Job Info <span class="sub">Customer, contact, site, tech, pool details</span></h2>
+          <div class="content">
+            <div class="row two">
+              <div><label>Customer Name</label><input data-k="job.customer" placeholder="e.g., Emberton, Steve" /></div>
+              <div><label>Service Address</label><input data-k="job.address" placeholder="Street, City, State" /></div>
+            </div>
+
+            <div class="row two">
+              <div><label>Customer Email</label><input data-k="job.email" inputmode="email" placeholder="name@email.com" /></div>
+              <div><label>Customer Phone</label><input data-k="job.phone" inputmode="tel" placeholder="###-###-####" /></div>
+            </div>
+
+            <div class="row three">
+              <div><label>Date</label><input data-k="job.date" type="date" /></div>
+              <div><label>Time</label><input data-k="job.time" type="time" /></div>
+              <div><label>Technician</label><input data-k="job.tech" placeholder="Tech name" /></div>
+            </div>
+            <div class="row three">
+              <div>
+                <label>Pool Type</label>
+                <select data-k="job.poolType">
+                  <option value="">Select…</option>
+                  <option>Salt Pool (SWG)</option>
+                  <option>Chlorine (Liquid/Tab)</option>
+                  <option>Mineral / Hybrid</option>
+                  <option>Spool / Combo</option>
+                </select>
+              </div>
+              <div><label>Gallons</label><input data-k="job.gallons" inputmode="numeric" placeholder="e.g., 12832" /></div>
+              <div><label>Weather / Notes</label><input data-k="job.weather" placeholder="Sunny / cloudy / etc." /></div>
+            </div>
+
+            <span class="pill">Use <b>Share Report</b> on mobile to send in Messages/Mail with the image.</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Photos <span class="sub">Before + After (optional)</span></h2>
+          <div class="content">
+            <div class="photoGrid">
+              <div class="photoBox">
+                <div class="photoTop">
+                  <div class="name">Before Photo</div>
+                  <div class="inlineBtns">
+                    <label class="btn ghost" for="beforeFile">Add</label>
+                    <button class="ghost" type="button" id="beforeClear">Clear</button>
+                  </div>
+                </div>
+                <input id="beforeFile" type="file" accept="image/*" capture="environment" style="display:none" />
+                <div class="thumb">
+                  <img id="beforeImg" alt="Before preview" />
+                  <div class="placeholder" id="beforePh">No before photo added.</div>
+                </div>
+              </div>
+
+              <div class="photoBox">
+                <div class="photoTop">
+                  <div class="name">After Photo</div>
+                  <div class="inlineBtns">
+                    <label class="btn ghost" for="afterFile">Add</label>
+                    <button class="ghost" type="button" id="afterClear">Clear</button>
+                  </div>
+                </div>
+                <input id="afterFile" type="file" accept="image/*" capture="environment" style="display:none" />
+                <div class="thumb">
+                  <img id="afterImg" alt="After preview" />
+                  <div class="placeholder" id="afterPh">No after photo added.</div>
+                </div>
+              </div>
+            </div>
+            <div class="divider"></div>
+            <div class="small">Photos are included in the Record Snapshot and saved in history.</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>2) Water Test <span class="sub">Record chemistry readings</span></h2>
+          <div class="content">
+            <div class="row three">
+              <div><label>FC</label><input data-k="water.fc" inputmode="decimal" placeholder="ppm" /></div>
+              <div><label>CC</label><input data-k="water.cc" inputmode="decimal" placeholder="ppm" /></div>
+              <div><label>pH</label><input data-k="water.ph" inputmode="decimal" placeholder="e.g., 7.5" /></div>
+            </div>
+            <div class="row three">
+              <div><label>TA</label><input data-k="water.ta" inputmode="decimal" placeholder="ppm" /></div>
+              <div><label>CH</label><input data-k="water.ch" inputmode="decimal" placeholder="ppm" /></div>
+              <div><label>CYA</label><input data-k="water.cya" inputmode="decimal" placeholder="ppm" /></div>
+            </div>
+            <div class="row three">
+              <div><label>Salt</label><input data-k="water.salt" inputmode="decimal" placeholder="ppm" /></div>
+              <div><label>Temp</label><input data-k="water.temp" inputmode="decimal" placeholder="°F" /></div>
+              <div><label>Phosphates (opt)</label><input data-k="water.phos" inputmode="decimal" placeholder="ppb" /></div>
+            </div>
+            <div>
+              <label>Adjustments Made</label>
+              <textarea data-k="water.adjustments" placeholder="What was added/changed and why…"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="card"><h2>3) Cleaning <span class="sub">Core service tasks</span></h2><div class="content"><div class="checklist" id="cleaningList"></div></div></div>
+        <div class="card"><h2>4) Equipment Check <span class="sub">Verify operation / note issues</span></h2><div class="content"><div class="checklist" id="equipmentList"></div></div></div>
+        <div class="card"><h2>5) Visual / Safety <span class="sub">Condition + safety observations</span></h2><div class="content"><div class="checklist" id="visualList"></div></div></div>
+
+        <div class="card">
+          <h2>6) Chemicals Added <span class="sub">Document product + amount</span></h2>
+          <div class="content">
+            <table class="table" id="chemTable">
+              <thead>
+                <tr>
+                  <th style="width:26%">Product</th>
+                  <th style="width:16%">Amount</th>
+                  <th style="width:18%">Unit</th>
+                  <th style="width:40%">Notes</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+            <div class="divider"></div>
+            <div class="inlineBtns">
+              <button class="ghost" id="chemAdd" type="button">+ Add Row</button>
+              <button class="ghost" id="chemClear" type="button">Clear Rows</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>7) Issues / Recommendations <span class="sub">Repairs needed + priority</span></h2>
+          <div class="content">
+            <div class="row two">
+              <div>
+                <label>Priority</label>
+                <select data-k="issues.priority">
+                  <option value="">Select…</option>
+                  <option>Low (monitor)</option>
+                  <option>Medium (schedule soon)</option>
+                  <option>High (needs attention)</option>
+                  <option>Urgent (ASAP)</option>
+                </select>
+              </div>
+              <div><label>Estimated Cost Range (opt)</label><input data-k="issues.estimate" placeholder="e.g., $150–$300" /></div>
+            </div>
+            <div><label>Issues Found / Recommendations</label><textarea data-k="issues.notes" placeholder="Describe issues, suspected cause, recommended next steps…"></textarea></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>8) Customer Notes + Tech Signature <span class="sub">Leave a clear summary</span></h2>
+          <div class="content">
+            <div><label>Customer Notes / Summary</label><textarea data-k="customer.summary" placeholder="What the customer should know…"></textarea></div>
+            <div class="row two">
+              <div><label>Tech Signature</label><input data-k="customer.signature" placeholder="Type full name" /></div>
+              <div><label>Customer Acknowledgement (opt)</label><input data-k="customer.ack" placeholder="Customer initials / name" /></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="rightCol">
+        <div class="card">
+          <h2>Visit History <span class="sub">Saved by Finish Visit</span></h2>
+          <div class="content">
+            <div class="histTop">
+              <div class="left">
+                <label>Search</label>
+                <input id="histSearch" placeholder="Search customer, address, tech…" />
+              </div>
+              <div style="min-width:220px;">
+                <label>Records</label>
+                <input id="histCount" readonly />
+              </div>
+            </div>
+            <div class="divider"></div>
+            <div class="inlineBtns">
+              <button class="ghost miniBtn" id="btnClearHistory" type="button">Clear History</button>
+            </div>
+            <div class="histList" id="histList"></div>
+            <p class="small" style="margin:10px 0 0;">History is stored on this device/browser.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Record Snapshot <span class="sub">Shared / captured as an image</span></h2>
+          <div class="captureWrap">
+            <div class="capture" id="captureArea">
+              <div class="captureHeader">
+                <div>
+                  <h3>BF Outdoor Services • Pool Maintenance Checklist</h3>
+                  <p id="capMeta">Customer • Address • Date</p>
+                </div>
+                <div class="printHint">
+                  <div class="small">Tap <b>Share Report</b></div>
+                  <div class="small">or Save as Image</div>
+                </div>
+              </div>
+
+              <div class="row two">
+                <div><label>Customer</label><input id="capCustomer" readonly /></div>
+                <div><label>Date / Time</label><input id="capDateTime" readonly /></div>
+              </div>
+              <div class="row two">
+                <div><label>Address</label><input id="capAddress" readonly /></div>
+                <div><label>Tech</label><input id="capTech" readonly /></div>
+              </div>
+
+              <div class="divider"></div>
+
+              <div class="row three">
+                <div><label>FC</label><input id="capFC" readonly /></div>
+                <div><label>pH</label><input id="capPH" readonly /></div>
+                <div><label>CYA</label><input id="capCYA" readonly /></div>
+              </div>
+              <div class="row three">
+                <div><label>TA</label><input id="capTA" readonly /></div>
+                <div><label>CH</label><input id="capCH" readonly /></div>
+                <div><label>Salt</label><input id="capSalt" readonly /></div>
+              </div>
+
+              <div class="divider"></div>
+
+              <div>
+                <label>Completed Tasks (checked ONLY)</label>
+                <textarea id="capChecks" readonly></textarea>
+              </div>
+
+              <div class="row two">
+                <div><label>Issues / Priority</label><textarea id="capIssues" readonly></textarea></div>
+                <div><label>Chemicals Added</label><textarea id="capChems" readonly></textarea></div>
+              </div>
+
+              <div class="divider"></div>
+
+              <div class="photoGrid">
+                <div class="photoBox">
+                  <div class="photoTop"><div class="name">Before</div></div>
+                  <div class="thumb">
+                    <img id="capBeforeImg" alt="Before in report" />
+                    <div class="placeholder" id="capBeforePh">No before photo.</div>
+                  </div>
+                </div>
+                <div class="photoBox">
+                  <div class="photoTop"><div class="name">After</div></div>
+                  <div class="thumb">
+                    <img id="capAfterImg" alt="After in report" />
+                    <div class="placeholder" id="capAfterPh">No after photo.</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="divider"></div>
+
+              <div class="row two">
+                <div><label>Customer Summary</label><textarea id="capSummary" readonly></textarea></div>
+                <div><label>Signature</label><input id="capSig" readonly /></div>
+              </div>
+
+              <p class="small" style="margin:10px 0 0;">Filename uses: <b>Customer + Date</b>.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Customize Tasks Modal -->
+  <div class="modalBackdrop" id="modalBackdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-label="Customize Tasks">
+      <div class="modalHead">
+        <h3>Customize Tasks</h3>
+        <div class="inlineBtns">
+          <button class="ghost" id="btnDefaults" type="button">Reset to Defaults</button>
+          <button class="primary" id="btnSaveTasks" type="button">Save Tasks</button>
+          <button class="danger" id="btnCloseModal" type="button">Close</button>
+        </div>
+      </div>
+      <div class="modalBody">
+        <div class="hintBox">
+          <div class="small">
+            One task per line:
+            <br><b>Title</b> <span style="opacity:.7">| Help (optional)</span>
+            <br>Example: <code>Brush walls | Steps, corners, tile line</code>
+          </div>
+          <span class="pill">Tasks save on this device automatically.</span>
+        </div>
+
+        <div class="twoCols">
+          <div class="sectionEditor">
+            <h4>Cleaning Tasks</h4>
+            <textarea id="editCleaning"></textarea>
+          </div>
+          <div class="sectionEditor">
+            <h4>Equipment Tasks</h4>
+            <textarea id="editEquipment"></textarea>
+          </div>
+          <div class="sectionEditor">
+            <h4>Visual / Safety Tasks</h4>
+            <textarea id="editVisual"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- html2canvas -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+  <script>
+    const KEY_TASKS   = "bf_checklist_tasks_v5";
+    const KEY_HISTORY = "bf_checklist_history_v5";
+    const KEY_DRAFT   = "bf_checklist_draft_v5";
+
+    const DEFAULT_TASKS = {
+      cleaning: [
+        { title:"Skim surface", help:"Remove leaves/debris from surface." },
+        { title:"Brush walls/steps", help:"Brush problem areas, steps, tile line." },
+        { title:"Vacuum / robot cycle", help:"Vacuum pool or run cleaner and confirm movement." },
+        { title:"Net bottom debris", help:"Leaf rake if needed." },
+        { title:"Empty skimmer & pump baskets", help:"Remove debris; inspect baskets for damage." },
+        { title:"Wipe waterline (as needed)", help:"Spot clean oils/dirt at tile line." },
+        { title:"Backwash / clean filter (if needed)", help:"Record PSI before/after if done." }
+      ],
+      equipment: [
+        { title:"Pump running / prime OK", help:"No air leaks; normal sound." },
+        { title:"Filter PSI normal", help:"Record PSI; note if rising quickly." },
+        { title:"Heater operation check (if present)", help:"No error codes; verify ignition/flow." },
+        { title:"Salt system (SWG) status", help:"Check % output, lights, cell condition." },
+        { title:"Timer/automation schedule verified", help:"Correct run times; adjust if needed." },
+        { title:"Valves set correctly", help:"Skimmer/main drain/features as desired." },
+        { title:"Visual leak check", help:"Pad plumbing, pump seal, filter, heater unions." }
+      ],
+      visual: [
+        { title:"Water clarity", help:"Clear / hazy / cloudy — note in comments." },
+        { title:"Algae check", help:"Steps, corners, returns, deep end." },
+        { title:"Stains / scale", help:"Metal stains, calcium scale, plaster spotting." },
+        { title:"Deck hazards", help:"Trip hazards, slippery areas, drainage issues." },
+        { title:"Fence/gate (if applicable)", help:"Gate closes/latches; barrier noted." }
+      ]
+    };
+
+    function deepClone(o){ return JSON.parse(JSON.stringify(o)); }
+    function escapeHtml(s){
+      return String(s ?? "")
+        .replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;").replaceAll("'","&#039;");
+    }
+    function setByPath(obj, path, val){
+      const parts = path.split(".");
+      let cur = obj;
+      for(let i=0;i<parts.length-1;i++){
+        cur[parts[i]] = cur[parts[i]] || {};
+        cur = cur[parts[i]];
+      }
+      cur[parts[parts.length-1]] = val;
+    }
+    function getByPath(obj, path){
+      const parts = path.split(".");
+      let cur = obj;
+      for(const p of parts){
+        if(cur==null) return "";
+        cur = cur[p];
+      }
+      return cur ?? "";
+    }
+    function pad(n){ return String(n).padStart(2,"0"); }
+    function fmtDate(d){ return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`; }
+    function fmtTime(d){ return `${pad(d.getHours())}:${pad(d.getMinutes())}`; }
+    function fmtWhen(ts){
+      const d = new Date(ts);
+      return `${fmtDate(d)} ${fmtTime(d)}`;
+    }
+    function safeFileName(s){
+      return (s||"").toString().trim()
+        .replaceAll(/[^a-zA-Z0-9]+/g,"_")
+        .replaceAll(/^_+|_+$/g,"")
+        .slice(0,60) || "Customer";
+    }
+
+    // Tasks
+    function loadTasks(){
+      const raw = localStorage.getItem(KEY_TASKS);
+      if(!raw) return deepClone(DEFAULT_TASKS);
+      try{
+        const t = JSON.parse(raw);
+        if(!t || !t.cleaning || !t.equipment || !t.visual) throw new Error("bad");
+        return t;
+      }catch(e){
+        return deepClone(DEFAULT_TASKS);
+      }
+    }
+    function saveTasks(tasks){ localStorage.setItem(KEY_TASKS, JSON.stringify(tasks)); }
+    let TASKS = loadTasks();
+
+    function slugKey(section, idx){ return `task.${section}.${idx}`; }
+    function renderList(containerId, sectionName, items){
+      const wrap = document.getElementById(containerId);
+      wrap.innerHTML = "";
+      items.forEach((it, idx)=>{
+        const baseKey = slugKey(sectionName, idx);
+        const el = document.createElement("div");
+        el.className = "item";
+        el.innerHTML = `
+          <div class="itemTop">
+            <input type="checkbox" data-k="${baseKey}.done" data-task="1" />
+            <div style="flex:1">
+              <p class="itemTitle">${escapeHtml(it.title)}</p>
+              <p class="itemHelp">${escapeHtml(it.help || "")}</p>
+              <div class="miniRow two">
+                <div>
+                  <label style="margin-top:6px;">Notes (optional)</label>
+                  <input data-k="${baseKey}.note" placeholder="Add details if needed…" />
+                </div>
+                <div>
+                  <label style="margin-top:6px;">Status</label>
+                  <select data-k="${baseKey}.status">
+                    <option value="">—</option>
+                    <option>OK</option>
+                    <option>Needs Attention</option>
+                    <option>Not Applicable</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+        wrap.appendChild(el);
+      });
+    }
+    function renderAll(){
+      renderList("cleaningList","cleaning", TASKS.cleaning);
+      renderList("equipmentList","equipment", TASKS.equipment);
+      renderList("visualList","visual", TASKS.visual);
+      syncCapture();
+    }
+
+    // Photos
+    const PHOTO = { before:"", after:"" };
+    function setPhoto(which, dataUrl){
+      PHOTO[which] = dataUrl || "";
+      const img = document.getElementById(which + "Img");
+      const ph  = document.getElementById(which + "Ph");
+      const capImg = document.getElementById("cap" + (which==="before"?"Before":"After") + "Img");
+      const capPh  = document.getElementById("cap" + (which==="before"?"Before":"After") + "Ph");
+      if(PHOTO[which]){
+        img.src = PHOTO[which]; img.style.display = "block"; ph.style.display = "none";
+        capImg.src = PHOTO[which]; capImg.style.display = "block"; capPh.style.display = "none";
+      }else{
+        img.removeAttribute("src"); img.style.display = "none"; ph.style.display = "block";
+        capImg.removeAttribute("src"); capImg.style.display = "none"; capPh.style.display = "block";
+      }
+      syncCapture();
+    }
+    async function fileToDataUrl(file, maxDim=1400, quality=0.85){
+      const bitmap = await createImageBitmap(file);
+      let { width, height } = bitmap;
+      const scale = Math.min(1, maxDim / Math.max(width, height));
+      width = Math.round(width * scale);
+      height = Math.round(height * scale);
+      const canvas = document.createElement("canvas");
+      canvas.width = width; canvas.height = height;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(bitmap, 0, 0, width, height);
+      return canvas.toDataURL("image/jpeg", quality);
+    }
+    document.getElementById("beforeFile").addEventListener("change", async (e)=>{
+      const f = e.target.files?.[0]; if(!f) return;
+      setPhoto("before", await fileToDataUrl(f)); e.target.value = "";
+    });
+    document.getElementById("afterFile").addEventListener("change", async (e)=>{
+      const f = e.target.files?.[0]; if(!f) return;
+      setPhoto("after", await fileToDataUrl(f)); e.target.value = "";
+    });
+    document.getElementById("beforeClear").addEventListener("click", ()=> setPhoto("before",""));
+    document.getElementById("afterClear").addEventListener("click", ()=> setPhoto("after",""));
+
+    // Chemicals table
+    const chemBody = document.querySelector("#chemTable tbody");
+    function addChemRow(rowData={product:"", amount:"", unit:"", notes:""}){
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td><input data-chem="product" placeholder="e.g., Liquid Chlorine" value="${escapeHtml(rowData.product)}"/></td>
+        <td><input data-chem="amount" placeholder="e.g., 1.5" value="${escapeHtml(rowData.amount)}"/></td>
+        <td>
+          <select data-chem="unit">
+            ${["—","gal","qt","lb","oz","cups","ppm target"].map(u=>`<option ${u===rowData.unit?"selected":""}>${u}</option>`).join("")}
+          </select>
+        </td>
+        <td><input data-chem="notes" placeholder="Reason / method" value="${escapeHtml(rowData.notes)}"/></td>
+      `;
+      chemBody.appendChild(tr);
+    }
+    document.getElementById("chemAdd").addEventListener("click", ()=>{ addChemRow(); syncCapture(); });
+    document.getElementById("chemClear").addEventListener("click", ()=>{
+      if(confirm("Clear all chemical rows?")){
+        chemBody.innerHTML=""; addChemRow(); syncCapture();
+      }
+    });
+    addChemRow();
+
+    // Collect/apply
+    function collect(){
+      const data = { version:5, ts: Date.now() };
+      document.querySelectorAll("[data-k]").forEach(el=>{
+        const key = el.getAttribute("data-k");
+        const val = (el.type === "checkbox") ? !!el.checked : (el.value ?? "");
+        setByPath(data, key, val);
+      });
+      const chems = [];
+      chemBody.querySelectorAll("tr").forEach(tr=>{
+        const r = {};
+        tr.querySelectorAll("[data-chem]").forEach(inp=>{
+          r[inp.getAttribute("data-chem")] = inp.value ?? "";
+        });
+        const any = (r.product||"").trim() || (r.amount||"").trim() || (r.notes||"").trim();
+        if(any) chems.push(r);
+      });
+      data.chems = chems;
+      data.tasks = TASKS;
+      data.photos = { before: PHOTO.before || "", after: PHOTO.after || "" };
+      return data;
+    }
+    function apply(data){
+      if(data.tasks && data.tasks.cleaning && data.tasks.equipment && data.tasks.visual){
+        TASKS = data.tasks;
+        saveTasks(TASKS);
+      }
+      renderAll();
+      document.querySelectorAll("[data-k]").forEach(el=>{
+        const key = el.getAttribute("data-k");
+        const val = getByPath(data, key);
+        if(el.type === "checkbox") el.checked = !!val;
+        else el.value = val ?? "";
+      });
+      chemBody.innerHTML = "";
+      if(Array.isArray(data.chems) && data.chems.length) data.chems.forEach(r=>addChemRow(r));
+      else addChemRow();
+      setPhoto("before", data.photos?.before || "");
+      setPhoto("after", data.photos?.after || "");
+      syncCapture();
+    }
+
+    // Snapshot summaries
+    function checkedTaskSummaryCheckedOnly(){
+      const titles = [];
+      document.querySelectorAll('.checklist input[type="checkbox"][data-task="1"]:checked').forEach(cb=>{
+        const t = cb.closest(".item")?.querySelector(".itemTitle");
+        if(t) titles.push(t.textContent.trim());
+      });
+      return titles.length ? titles.join(", ") : "—";
+    }
+    function chemicalsSummary(data){
+      if(!Array.isArray(data.chems) || !data.chems.length) return "—";
+      return data.chems.map(r=>{
+        const u = (r.unit && r.unit !== "—") ? ` ${r.unit}` : "";
+        const amt = (r.amount||"").trim();
+        const prod = (r.product||"").trim();
+        const notes = (r.notes||"").trim();
+        const main = `${prod}${amt?` • ${amt}${u}`:""}`.trim();
+        return notes ? `${main} (${notes})` : main;
+      }).join("\n");
+    }
+    function issuesSummary(data){
+      const pr = getByPath(data, "issues.priority") || "—";
+      const est = getByPath(data, "issues.estimate") || "";
+      const notes = (getByPath(data, "issues.notes") || "").trim();
+      const head = `Priority: ${pr}${est?` • Est: ${est}`:""}`;
+      return notes ? `${head}\n${notes}` : `${head}\n—`;
+    }
+
+    function syncCapture(){
+      const data = collect();
+      const customer = getByPath(data,"job.customer");
+      const address  = getByPath(data,"job.address");
+      const date     = getByPath(data,"job.date");
+      const time     = getByPath(data,"job.time");
+      const tech     = getByPath(data,"job.tech");
+
+      document.getElementById("capCustomer").value  = customer || "—";
+      document.getElementById("capAddress").value   = address || "—";
+      document.getElementById("capTech").value      = tech || "—";
+      document.getElementById("capDateTime").value  = `${date||"—"} ${time||""}`.trim();
+
+      document.getElementById("capFC").value   = getByPath(data,"water.fc") || "—";
+      document.getElementById("capPH").value   = getByPath(data,"water.ph") || "—";
+      document.getElementById("capCYA").value  = getByPath(data,"water.cya") || "—";
+      document.getElementById("capTA").value   = getByPath(data,"water.ta") || "—";
+      document.getElementById("capCH").value   = getByPath(data,"water.ch") || "—";
+      document.getElementById("capSalt").value = getByPath(data,"water.salt") || "—";
+
+      document.getElementById("capChecks").value = checkedTaskSummaryCheckedOnly();
+      document.getElementById("capChems").value  = chemicalsSummary(data);
+      document.getElementById("capIssues").value = issuesSummary(data);
+      document.getElementById("capSummary").value= getByPath(data,"customer.summary") || "—";
+      document.getElementById("capSig").value    = getByPath(data,"customer.signature") || "—";
+
+      document.getElementById("capMeta").textContent =
+        `${customer||"Customer"} • ${address||"Address"} • ${date||"Date"}`;
+
+      localStorage.setItem(KEY_DRAFT, JSON.stringify(data));
+    }
+
+    // History
+    function loadHistory(){
+      const raw = localStorage.getItem(KEY_HISTORY);
+      if(!raw) return [];
+      try{ const arr = JSON.parse(raw); return Array.isArray(arr) ? arr : []; }
+      catch(e){ return []; }
+    }
+    function saveHistory(arr){ localStorage.setItem(KEY_HISTORY, JSON.stringify(arr)); }
+    let HISTORY = loadHistory();
+    let ACTIVE_RECORD_ID = null;
+
+    function recordTitle(rec){
+      const c = getByPath(rec,"job.customer") || "Customer";
+      const d = getByPath(rec,"job.date") || fmtDate(new Date(rec.ts || Date.now()));
+      return `${c} • ${d}`;
+    }
+    function recordSubtitle(rec){
+      const addr = getByPath(rec,"job.address") || "Address";
+      const tech = getByPath(rec,"job.tech") || "Tech";
+      const when = fmtWhen(rec.ts || Date.now());
+      return `${when} • ${tech} • ${addr}`;
+    }
+    function renderHistory(){
+      const q = (document.getElementById("histSearch").value || "").trim().toLowerCase();
+      const list = document.getElementById("histList");
+      list.innerHTML = "";
+
+      const shown = HISTORY
+        .slice()
+        .sort((a,b)=>(b.ts||0)-(a.ts||0))
+        .filter(rec=>{
+          if(!q) return true;
+          const hay = [
+            getByPath(rec,"job.customer"),
+            getByPath(rec,"job.address"),
+            getByPath(rec,"job.tech"),
+            getByPath(rec,"job.poolType"),
+            getByPath(rec,"job.email"),
+            getByPath(rec,"job.phone"),
+          ].join(" ").toLowerCase();
+          return hay.includes(q);
+        });
+
+      document.getElementById("histCount").value = `${HISTORY.length} saved • ${shown.length} shown`;
+
+      if(!shown.length){
+        const empty = document.createElement("div");
+        empty.className = "small";
+        empty.textContent = "No matching records yet. Use Finish Visit to create one.";
+        list.appendChild(empty);
+        return;
+      }
+
+      shown.forEach(rec=>{
+        const item = document.createElement("div");
+        item.className = "histItem";
+
+        const meta = document.createElement("div");
+        meta.className = "histMeta";
+        meta.innerHTML = `
+          <p class="t">${escapeHtml(recordTitle(rec))}${rec.id===ACTIVE_RECORD_ID ? " • (open)" : ""}</p>
+          <p class="s">${escapeHtml(recordSubtitle(rec))}</p>
+        `;
+
+        const btns = document.createElement("div");
+        btns.className = "histBtns";
+        btns.innerHTML = `
+          <button class="ghost miniBtn" data-act="open" data-id="${rec.id}">Open</button>
+          <button class="ghost miniBtn" data-act="dup" data-id="${rec.id}">Duplicate</button>
+          <button class="danger miniBtn" data-act="del" data-id="${rec.id}">Delete</button>
+        `;
+
+        item.appendChild(meta);
+        item.appendChild(btns);
+        list.appendChild(item);
+      });
+    }
+    function upsertRecord(rec){
+      const idx = HISTORY.findIndex(r=>r.id===rec.id);
+      if(idx>=0) HISTORY[idx] = rec;
+      else HISTORY.push(rec);
+
+      if(HISTORY.length > 200){
+        HISTORY = HISTORY.sort((a,b)=>(b.ts||0)-(a.ts||0)).slice(0,200);
+      }
+
+      saveHistory(HISTORY);
+      renderHistory();
+    }
+    function finishVisit(){
+      const data = collect();
+      const customer = (getByPath(data,"job.customer")||"").trim();
+      const date = (getByPath(data,"job.date")||"").trim();
+      const tech = (getByPath(data,"job.tech")||"").trim();
+      if(!customer || !date || !tech){
+        const ok = confirm("Customer, Date, or Tech is blank. Save record anyway?");
+        if(!ok) return;
+      }
+      const now = Date.now();
+      const rec = { ...data, id:`rec_${now}_${Math.random().toString(16).slice(2)}`, ts: now };
+      upsertRecord(rec);
+      ACTIVE_RECORD_ID = rec.id;
+      toast("Saved record to history.");
+
+      const goNext = confirm("Record saved. Start a NEW visit now (clear form)?");
+      if(goNext) newVisit();
+      else renderHistory();
+    }
+    function newVisit(){
+      document.querySelectorAll("[data-k]").forEach(el=>{
+        if(el.type === "checkbox") el.checked = false;
+        else el.value = "";
+      });
+      chemBody.innerHTML = "";
+      addChemRow();
+      setPhoto("before","");
+      setPhoto("after","");
+      setDefaults();
+      ACTIVE_RECORD_ID = null;
+      syncCapture();
+      renderHistory();
+      toast("Ready for next visit.");
+    }
+    function openRecord(id){
+      const rec = HISTORY.find(r=>r.id===id);
+      if(!rec) return;
+      ACTIVE_RECORD_ID = id;
+      apply(rec);
+      toast("Opened record.");
+      renderHistory();
+    }
+    function deleteRecord(id){
+      const rec = HISTORY.find(r=>r.id===id);
+      if(!rec) return;
+      const ok = confirm(`Delete this record?\n\n${recordTitle(rec)}`);
+      if(!ok) return;
+      HISTORY = HISTORY.filter(r=>r.id!==id);
+      if(ACTIVE_RECORD_ID===id) ACTIVE_RECORD_ID = null;
+      saveHistory(HISTORY);
+      renderHistory();
+      toast("Record deleted.");
+    }
+    function duplicateRecord(id){
+      const rec = HISTORY.find(r=>r.id===id);
+      if(!rec) return;
+      const now = Date.now();
+      const copy = JSON.parse(JSON.stringify(rec));
+      copy.id = `rec_${now}_${Math.random().toString(16).slice(2)}`;
+      copy.ts = now;
+      upsertRecord(copy);
+      toast("Record duplicated.");
+    }
+    document.getElementById("histList").addEventListener("click", (e)=>{
+      const btn = e.target.closest("button[data-act]");
+      if(!btn) return;
+      const act = btn.getAttribute("data-act");
+      const id = btn.getAttribute("data-id");
+      if(act==="open") openRecord(id);
+      if(act==="del") deleteRecord(id);
+      if(act==="dup") duplicateRecord(id);
+    });
+    document.getElementById("histSearch").addEventListener("input", renderHistory);
+    document.getElementById("btnClearHistory").addEventListener("click", ()=>{
+      const ok = confirm("Clear ALL saved history on this device?");
+      if(!ok) return;
+      HISTORY = [];
+      ACTIVE_RECORD_ID = null;
+      saveHistory(HISTORY);
+      renderHistory();
+      toast("History cleared.");
+    });
+
+    // Export/Import (tasks + history)
+    function exportJSON(){
+      const payload = { exportedAt: Date.now(), tasks: TASKS, history: HISTORY };
+      const filename = `BF_Checklist_HISTORY_${fmtDate(new Date())}.json`;
+      const blob = new Blob([JSON.stringify(payload,null,2)], {type:"application/json"});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url; a.download = filename;
+      document.body.appendChild(a); a.click(); a.remove();
+      URL.revokeObjectURL(url);
+    }
+    async function importJSON(file){
+      try{
+        const payload = JSON.parse(await file.text());
+        if(payload.tasks) { TASKS = payload.tasks; saveTasks(TASKS); }
+        if(Array.isArray(payload.history)) { HISTORY = payload.history; saveHistory(HISTORY); }
+        renderAll(); renderHistory();
+        toast("Imported tasks + history.");
+      }catch(e){
+        alert("Could not import that file.");
+      }
+    }
+
+    // Create the snapshot PNG as a Blob (used by Save/Share)
+    async function captureSnapshotBlob(){
+      syncCapture();
+      const node = document.getElementById("captureArea");
+      const canvas = await html2canvas(node, { backgroundColor:null, scale:2 });
+      return new Promise((resolve, reject)=>{
+        canvas.toBlob((blob)=> blob ? resolve(blob) : reject(new Error("toBlob failed")), "image/png");
+      });
+    }
+
+    // Save as Image
+    async function saveAsImage(){
+      const data = collect();
+      const customer = safeFileName(getByPath(data,"job.customer"));
+      const date = getByPath(data,"job.date") || fmtDate(new Date());
+      const filename = `BF_Checklist_${customer}_${date}.png`;
+      try{
+        const blob = await captureSnapshotBlob();
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url; a.download = filename;
+        document.body.appendChild(a); a.click(); a.remove();
+        URL.revokeObjectURL(url);
+        toast("Saved image for records.");
+      }catch(err){
+        alert("Image capture failed. Try browser Print as a fallback.");
+      }
+    }
+
+    // ✅ Share Report (Messages/Mail share sheet on mobile)
+    async function shareReport(){
+      const data = collect();
+      const customerRaw = getByPath(data,"job.customer") || "Customer";
+      const customer = safeFileName(customerRaw);
+      const date = getByPath(data,"job.date") || fmtDate(new Date());
+      const filename = `BF_Checklist_${customer}_${date}.png`;
+
+      const summaryText =
+`BF Outdoor Services - Pool Service Report
+Customer: ${customerRaw || "—"}
+Date: ${date}
+Completed Tasks: ${checkedTaskSummaryCheckedOnly()}
+Notes: ${(getByPath(data,"customer.summary")||"").trim() || "—"}`;
+
+      try{
+        const blob = await captureSnapshotBlob();
+        const file = new File([blob], filename, { type:"image/png" });
+
+        // Prefer share-with-file if supported
+        if(navigator.canShare && navigator.canShare({ files:[file] }) && navigator.share){
+          await navigator.share({
+            title: "Pool Service Report",
+            text: summaryText,
+            files: [file]
+          });
+          toast("Share sheet opened.");
+          return;
+        }
+
+        // Fallback: download + tell them to share from Photos/Files
+        await saveAsImage();
+        alert("Sharing files isn’t supported on this device/browser. The report was downloaded instead — share it from Photos/Files.");
+      }catch(err){
+        // user canceled share is not an error we need to bark about
+        toast("Share canceled or unavailable.");
+      }
+    }
+
+    // Compose Email/Text (prefilled)
+    function buildMessageText(){
+      const data = collect();
+      const customer = getByPath(data,"job.customer") || "Customer";
+      const date = getByPath(data,"job.date") || fmtDate(new Date());
+      const addr = getByPath(data,"job.address") || "";
+      const tech = getByPath(data,"job.tech") || "";
+      return `Hi ${customer},
+
+Here is your BF Outdoor Services pool service update for ${date}.
+${addr ? "Address: " + addr + "\n" : ""}${tech ? "Technician: " + tech + "\n" : ""}
+
+Completed tasks:
+${checkedTaskSummaryCheckedOnly()}
+
+Chemicals added:
+${chemicalsSummary(collect())}
+
+Notes:
+${(getByPath(collect(),"customer.summary")||"").trim() || "—"}
+
+Thank you,
+BF Outdoor Services`;
+    }
+    function composeEmail(){
+      const data = collect();
+      const to = (getByPath(data,"job.email")||"").trim();
+      if(!to){ alert("No customer email entered."); return; }
+      const date = getByPath(data,"job.date") || fmtDate(new Date());
+      const customer = getByPath(data,"job.customer") || "Customer";
+      const subject = `Pool Service Report - ${customer} - ${date}`;
+      const body = buildMessageText();
+      const mailto = `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = mailto;
+    }
+    function normalizePhone(p){
+      return (p||"").toString().replaceAll(/[^\d+]/g,""); // keep digits and +
+    }
+    function composeText(){
+      const data = collect();
+      const toRaw = (getByPath(data,"job.phone")||"").trim();
+      if(!toRaw){ alert("No customer phone entered."); return; }
+      const to = normalizePhone(toRaw);
+      const body = `BF Outdoor Services Pool Report: ${getByPath(data,"job.date") || fmtDate(new Date())}. I will send your report image now.`;
+      // iOS/Android differences: use sms:?&body=... generally works
+      const sms = `sms:${encodeURIComponent(to)}?&body=${encodeURIComponent(body)}`;
+      window.location.href = sms;
+    }
+
+    // Defaults & reset
+    function setDefaults(){
+      const dateEl = document.querySelector('[data-k="job.date"]');
+      const timeEl = document.querySelector('[data-k="job.time"]');
+      const now = new Date();
+      if(dateEl && !dateEl.value) dateEl.value = fmtDate(now);
+      if(timeEl && !timeEl.value) timeEl.value = fmtTime(now);
+    }
+    function resetAll(){
+      if(!confirm("Reset current form? (History will stay)")) return;
+      newVisit();
+    }
+
+    // Toast
+    let toastTimer = null;
+    function toast(msg){
+      clearTimeout(toastTimer);
+      let t = document.getElementById("toast");
+      if(!t){
+        t = document.createElement("div");
+        t.id = "toast";
+        t.style.position="fixed";
+        t.style.left="50%";
+        t.style.bottom="18px";
+        t.style.transform="translateX(-50%)";
+        t.style.padding="10px 12px";
+        t.style.borderRadius="999px";
+        t.style.border="1px solid rgba(255,255,255,.18)";
+        t.style.background="rgba(0,0,0,.55)";
+        t.style.backdropFilter="blur(8px)";
+        t.style.color="rgba(238,242,255,.92)";
+        t.style.fontWeight="900";
+        t.style.fontSize="13px";
+        t.style.zIndex="9999";
+        document.body.appendChild(t);
+      }
+      t.textContent = msg;
+      t.style.opacity="1";
+      toastTimer = setTimeout(()=>{ t.style.opacity="0"; }, 2200);
+    }
+
+    // Customize modal
+    const modal = document.getElementById("modalBackdrop");
+    const editCleaning  = document.getElementById("editCleaning");
+    const editEquipment = document.getElementById("editEquipment");
+    const editVisual    = document.getElementById("editVisual");
+
+    function tasksToText(arr){
+      return (arr||[]).map(t=>{
+        const title=(t.title||"").trim();
+        const help=(t.help||"").trim();
+        return help ? `${title} | ${help}` : `${title}`;
+      }).join("\n");
+    }
+    function textToTasks(text){
+      const lines=(text||"").split("\n").map(l=>l.trim()).filter(Boolean);
+      const out=[];
+      for(const line of lines){
+        const parts=line.split("|");
+        const title=(parts[0]||"").trim();
+        const help=(parts.slice(1).join("|")||"").trim();
+        if(title) out.push({title, help});
+      }
+      return out;
+    }
+    function openModal(){
+      editCleaning.value  = tasksToText(TASKS.cleaning);
+      editEquipment.value = tasksToText(TASKS.equipment);
+      editVisual.value    = tasksToText(TASKS.visual);
+      modal.style.display="flex";
+      modal.setAttribute("aria-hidden","false");
+    }
+    function closeModal(){
+      modal.style.display="none";
+      modal.setAttribute("aria-hidden","true");
+    }
+    function saveTasksFromEditor(){
+      const newTasks={
+        cleaning:textToTasks(editCleaning.value),
+        equipment:textToTasks(editEquipment.value),
+        visual:textToTasks(editVisual.value)
+      };
+      if(!newTasks.cleaning.length)  return alert("Cleaning tasks can't be empty.");
+      if(!newTasks.equipment.length) return alert("Equipment tasks can't be empty.");
+      if(!newTasks.visual.length)    return alert("Visual tasks can't be empty.");
+      TASKS=newTasks;
+      saveTasks(TASKS);
+      renderAll();
+      closeModal();
+      toast("Tasks saved.");
+    }
+    function resetTasksToDefaults(){
+      if(!confirm("Reset tasks to defaults?")) return;
+      TASKS=deepClone(DEFAULT_TASKS);
+      saveTasks(TASKS);
+      renderAll();
+      toast("Tasks reset.");
+    }
+    modal.addEventListener("click",(e)=>{ if(e.target===modal) closeModal(); });
+
+    // Events
+    document.getElementById("btnCustomize").addEventListener("click", openModal);
+    document.getElementById("btnCloseModal").addEventListener("click", closeModal);
+    document.getElementById("btnSaveTasks").addEventListener("click", saveTasksFromEditor);
+    document.getElementById("btnDefaults").addEventListener("click", resetTasksToDefaults);
+
+    document.getElementById("btnNewVisit").addEventListener("click", newVisit);
+    document.getElementById("btnFinish").addEventListener("click", finishVisit);
+
+    document.getElementById("btnShare").addEventListener("click", shareReport);
+    document.getElementById("btnEmail").addEventListener("click", composeEmail);
+    document.getElementById("btnText").addEventListener("click", composeText);
+
+    document.getElementById("btnImage").addEventListener("click", saveAsImage);
+    document.getElementById("btnExport").addEventListener("click", exportJSON);
+    document.getElementById("btnResetAll").addEventListener("click", resetAll);
+
+    document.getElementById("importFile").addEventListener("change", async (e)=>{
+      const f=e.target.files?.[0];
+      if(f) await importJSON(f);
+      e.target.value="";
+    });
+
+    // Live updates
+    document.addEventListener("input",(e)=>{
+      const t=e.target;
+      if(t.matches("[data-k], [data-chem]")) syncCapture();
+    });
+    document.addEventListener("change",(e)=>{
+      const t=e.target;
+      if(t.matches("[data-k], [data-chem]")) syncCapture();
+    });
+
+    // Init
+    setDefaults();
+    renderAll();
+
+    const draftRaw = localStorage.getItem(KEY_DRAFT);
+    if(draftRaw){
+      try{ apply(JSON.parse(draftRaw)); }catch(e){}
+    }else{
+      setPhoto("before","");
+      setPhoto("after","");
+      syncCapture();
+    }
+
+    renderHistory();
+  </script>
+</body>
+</html>
