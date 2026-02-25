@@ -217,7 +217,7 @@
     .histBtns{display:flex; gap:6px; flex-wrap:wrap; justify-content:flex-end}
     .miniBtn{padding:8px 10px; border-radius:12px; font-size:12px; font-weight:950;}
 
-    /* Report preview (text-only template) */
+    /* ====== On-screen Report Preview (dark, like app) ====== */
     .reportWrap{padding:14px}
     .reportPreview{
       border:1px solid rgba(255,255,255,.12);
@@ -248,18 +248,73 @@
       font-size:14px;
       color:rgba(238,242,255,.94);
     }
+    .reportGrid2{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:12px;
+    }
+    @media(min-width:720px){
+      .reportGrid2{ grid-template-columns:1fr 1fr; }
+    }
 
-    /* Export host for wide capture (BIGGER) */
+    /* ====== Export host for capture (BIGGER) ====== */
     .exportHost{
       position: fixed;
       left: -99999px;
       top: 0;
-      width: 1400px;          /* <-- bigger */
-      padding: 16px;
+      width: 1600px;     /* ✅ bigger export width */
+      padding: 18px;
       background: transparent;
       z-index: -1;
     }
-    .exportHost .reportPreview{ width: 1400px; }
+
+    /* ====== Export-only "customer facing" report theme (WHITE) ====== */
+    .exportTheme{
+      width: 1600px;
+      background: #ffffff !important;
+      color: #0b1220 !important;
+      border: 1px solid rgba(10,20,40,.12) !important;
+      box-shadow: none !important;
+    }
+    .exportTheme *{ color: inherit !important; }
+    .exportTheme .reportHeader{
+      border-bottom: 2px solid rgba(10,20,40,.10) !important;
+      padding-bottom: 14px !important;
+      margin-bottom: 14px !important;
+    }
+    .exportTheme .reportHeader h3{
+      font-size: 24px !important;
+      letter-spacing: .2px !important;
+    }
+    .exportTheme .reportHeader .tag{
+      font-size: 15px !important;
+      color: rgba(10,20,40,.70) !important;
+    }
+    .exportTheme .reportBox{
+      background: #ffffff !important;
+      border: 1px solid rgba(10,20,40,.10) !important;
+      border-radius: 14px !important;
+      padding: 14px !important;
+      margin: 12px 0 !important;
+    }
+    .exportTheme .reportBox h4{
+      font-size: 13px !important;
+      color: rgba(10,20,40,.70) !important;
+      margin-bottom: 8px !important;
+    }
+    .exportTheme .reportText{
+      font-size: 16px !important;
+      line-height: 1.55 !important;
+      color: #0b1220 !important;
+    }
+    .exportTheme .photoBox{
+      background: #ffffff !important;
+      border: 1px solid rgba(10,20,40,.10) !important;
+    }
+    .exportTheme .thumb{
+      border: 1px solid rgba(10,20,40,.12) !important;
+      background: #f3f6fb !important;
+    }
 
     /* Customize modal */
     .modalBackdrop{
@@ -308,7 +363,7 @@
         <div class="mark" title="BF Outdoor Services">BF</div>
         <div class="title">
           <h1>Pool Maintenance Checklist</h1>
-          <p>Finish Visit saves history • Share Report sends the report image with your exact message</p>
+          <p>Finish Visit saves history • Share Report sends a clean white customer report image</p>
         </div>
       </div>
 
@@ -316,13 +371,10 @@
         <button class="ghost" id="btnCustomize" type="button">Customize Tasks</button>
         <button class="ghost" id="btnNewVisit" type="button">New Visit</button>
         <button class="success" id="btnFinish" type="button">Finish Visit / Save Record</button>
-
         <button class="primary" id="btnShare" type="button">Share Report</button>
-
         <button class="ghost" id="btnExport" type="button">Export JSON</button>
         <label class="btn ghost" for="importFile" style="display:inline-flex;align-items:center;gap:8px;">Import JSON</label>
         <input id="importFile" type="file" accept="application/json" style="display:none" />
-
         <button class="danger" id="btnResetAll" type="button">Reset</button>
       </div>
     </div>
@@ -360,7 +412,7 @@
               <div><label>Gallons</label><input data-k="job.gallons" inputmode="numeric" placeholder="e.g., 12832" /></div>
               <div><label>Weather / Notes</label><input data-k="job.weather" placeholder="Sunny / cloudy / etc." /></div>
             </div>
-            <span class="pill">Report exports from the <b>text template</b> and is captured at <b>1400px wide</b>.</span>
+            <span class="pill">Export is <b>1600px wide</b> and uses a clean white customer layout.</span>
           </div>
         </div>
 
@@ -511,7 +563,7 @@
         </div>
 
         <div class="card">
-          <h2>Report Preview <span class="sub">This is exactly what gets shared</span></h2>
+          <h2>Report Preview <span class="sub">Preview is dark, export is clean white</span></h2>
           <div class="reportWrap">
             <div class="reportPreview" id="reportArea">
               <div class="reportHeader">
@@ -519,17 +571,18 @@
                   <h3>BF Outdoor Services • Pool Maintenance Report</h3>
                   <div class="tag" id="rpTag">Customer • Date</div>
                 </div>
-                <div class="tag" id="rpMeta">Generated from checklist</div>
+                <div class="tag" id="rpMeta">Generated</div>
               </div>
 
-              <div class="reportBox">
-                <h4>Customer</h4>
-                <div class="reportText" id="rpCustomer"></div>
-              </div>
-
-              <div class="reportBox">
-                <h4>Water Test Results</h4>
-                <div class="reportText" id="rpWater"></div>
+              <div class="reportGrid2">
+                <div class="reportBox">
+                  <h4>Customer</h4>
+                  <div class="reportText" id="rpCustomer"></div>
+                </div>
+                <div class="reportBox">
+                  <h4>Water Test Results</h4>
+                  <div class="reportText" id="rpWater"></div>
+                </div>
               </div>
 
               <div class="reportBox">
@@ -578,7 +631,7 @@
             </div>
 
             <div class="divider"></div>
-            <div class="small"><b>Share Report</b> will use your exact text message + attach the report image.</div>
+            <div class="small"><b>Share Report</b> attaches a clean white report image and uses your exact text message.</div>
           </div>
         </div>
       </div>
@@ -624,13 +677,12 @@
     </div>
   </div>
 
-  <!-- html2canvas -->
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
   <script>
-    const KEY_TASKS   = "bf_pm_tasks_v2";
-    const KEY_HISTORY = "bf_pm_history_v2";
-    const KEY_DRAFT   = "bf_pm_draft_v2";
+    const KEY_TASKS   = "bf_pm_tasks_v3";
+    const KEY_HISTORY = "bf_pm_history_v3";
+    const KEY_DRAFT   = "bf_pm_draft_v3";
 
     const DEFAULT_TASKS = {
       cleaning: [
@@ -750,7 +802,6 @@
         wrap.appendChild(el);
       });
     }
-
     function renderAll(){
       renderList("cleaningList","cleaning", TASKS.cleaning);
       renderList("equipmentList","equipment", TASKS.equipment);
@@ -828,7 +879,7 @@
 
     // Data collect/apply
     function collect(){
-      const data = { version:2, ts: Date.now(), tasks: TASKS, photos: {before:PHOTO.before, after:PHOTO.after} };
+      const data = { version:3, ts: Date.now(), tasks: TASKS, photos: {before:PHOTO.before, after:PHOTO.after} };
       $$("[data-k]").forEach(el=>{
         const key = el.getAttribute("data-k");
         const val = (el.type === "checkbox") ? !!el.checked : (el.value ?? "");
@@ -1094,7 +1145,7 @@ Customer Acknowledgement: ${((getByPath(data,"customer.ack")||"").trim() || "—
       toast("History cleared.");
     });
 
-    // Export / Import
+    // Export / Import JSON
     function exportJSON(){
       const payload = { exportedAt: Date.now(), tasks: TASKS, history: HISTORY };
       const filename = `BF_PM_HISTORY_${fmtDate(new Date())}.json`;
@@ -1117,7 +1168,7 @@ Customer Acknowledgement: ${((getByPath(data,"customer.ack")||"").trim() || "—
       }
     }
 
-    // Capture report image (wide + reliable)
+    // ✅ Capture report image (apply WHITE exportTheme only for export)
     async function captureReportBlob(){
       syncReport();
 
@@ -1127,12 +1178,15 @@ Customer Acknowledgement: ${((getByPath(data,"customer.ack")||"").trim() || "—
       document.body.appendChild(host);
 
       const clone = source.cloneNode(true);
+      clone.classList.add("exportTheme");  // ✅ customer facing white export
+
       host.appendChild(clone);
 
-      await new Promise(r=>setTimeout(r, 90));
+      // allow images/fonts to paint
+      await new Promise(r=>setTimeout(r, 140));
 
       const canvas = await html2canvas(clone, {
-        backgroundColor: null,
+        backgroundColor: "#ffffff",  // ✅ force white background
         scale: 2,
         useCORS: true
       });
@@ -1144,7 +1198,7 @@ Customer Acknowledgement: ${((getByPath(data,"customer.ack")||"").trim() || "—
       });
     }
 
-    // ✅ Share Report with your exact message
+    // ✅ Share Report with your exact message only
     async function shareReport(){
       const data = collect();
       const date = (getByPath(data,"job.date")||"").trim() || fmtDate(new Date());
@@ -1163,16 +1217,12 @@ Please review the attached report from today’s service, and as always thank yo
         const file = new File([blob], filename, { type:"image/png" });
 
         if(navigator.canShare && navigator.canShare({ files:[file] }) && navigator.share){
-          await navigator.share({
-            title: "Pool Maintenance Report",
-            text: message,
-            files: [file]
-          });
+          await navigator.share({ title:"Pool Maintenance Report", text: message, files:[file] });
           toast("Share sheet opened.");
           return;
         }
 
-        // fallback: download (rare on mobile; common on desktop)
+        // Desktop / unsupported share fallback
         const url = URL.createObjectURL(blob);
         const a=document.createElement("a");
         a.href=url; a.download=filename;
@@ -1298,6 +1348,7 @@ Please review the attached report from today’s service, and as always thank yo
       if(f) await importJSON(f);
       e.target.value="";
     });
+
     $("#btnResetAll").addEventListener("click", resetAll);
 
     // Live updates
