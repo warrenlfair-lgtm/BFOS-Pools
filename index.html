@@ -31,7 +31,7 @@
         radial-gradient(1200px 700px at 50% 110%, rgba(251,191,36,.14), transparent 55%),
         var(--bg);
     }
-    .wrap{max-width:1250px; margin:22px auto; padding:0 14px 44px;}
+    .wrap{max-width:1280px; margin:22px auto; padding:0 14px 44px;}
     .topbar{
       display:flex; gap:14px; align-items:center; justify-content:space-between;
       padding:14px; border:1px solid var(--line); border-radius:var(--r);
@@ -223,7 +223,7 @@
       border:1px solid rgba(255,255,255,.12);
       background:linear-gradient(180deg, rgba(18,27,46,.94), rgba(15,23,42,.90));
       border-radius:var(--r);
-      padding:16px;
+      padding:18px;
     }
     .reportHeader{
       display:flex; align-items:flex-start; justify-content:space-between; gap:12px;
@@ -231,35 +231,35 @@
       border-bottom:1px solid rgba(255,255,255,.12);
       flex-wrap:wrap;
     }
-    .reportHeader h3{margin:0; font-size:15px}
-    .reportHeader .tag{font-size:12px; color:var(--muted); margin-top:2px}
+    .reportHeader h3{margin:0; font-size:16px}
+    .reportHeader .tag{font-size:12px; color:var(--muted); margin-top:3px}
     .reportBox{
       border:1px solid rgba(255,255,255,.12);
       background:rgba(255,255,255,.04);
       border-radius:14px;
-      padding:10px;
+      padding:12px;
       margin:10px 0;
     }
-    .reportBox h4{margin:0 0 6px; font-size:12px; color:var(--muted); letter-spacing:.2px}
+    .reportBox h4{margin:0 0 8px; font-size:12px; color:var(--muted); letter-spacing:.2px}
     .reportText{
       white-space:pre-wrap;
       word-break:break-word;
-      line-height:1.35;
-      font-size:13px;
-      color:rgba(238,242,255,.92);
+      line-height:1.4;
+      font-size:14px;
+      color:rgba(238,242,255,.94);
     }
 
-    /* Export host for wide capture */
+    /* Export host for wide capture (BIGGER) */
     .exportHost{
       position: fixed;
       left: -99999px;
       top: 0;
-      width: 1200px;
+      width: 1400px;          /* <-- bigger */
       padding: 16px;
       background: transparent;
       z-index: -1;
     }
-    .exportHost .reportPreview{ width: 1200px; }
+    .exportHost .reportPreview{ width: 1400px; }
 
     /* Customize modal */
     .modalBackdrop{
@@ -308,7 +308,7 @@
         <div class="mark" title="BF Outdoor Services">BF</div>
         <div class="title">
           <h1>Pool Maintenance Checklist</h1>
-          <p>Finish Visit saves history • Share Report opens Messages/Mail with a clean report image</p>
+          <p>Finish Visit saves history • Share Report sends the report image with your exact message</p>
         </div>
       </div>
 
@@ -318,10 +318,6 @@
         <button class="success" id="btnFinish" type="button">Finish Visit / Save Record</button>
 
         <button class="primary" id="btnShare" type="button">Share Report</button>
-        <button class="ghost" id="btnEmail" type="button">Compose Email</button>
-        <button class="ghost" id="btnText" type="button">Compose Text</button>
-
-        <button class="ghost" id="btnDownload" type="button">Download Report Image</button>
 
         <button class="ghost" id="btnExport" type="button">Export JSON</button>
         <label class="btn ghost" for="importFile" style="display:inline-flex;align-items:center;gap:8px;">Import JSON</label>
@@ -342,8 +338,8 @@
               <div><label>Service Address</label><input data-k="job.address" placeholder="Street, City, State" /></div>
             </div>
             <div class="row two">
-              <div><label>Customer Email</label><input data-k="job.email" inputmode="email" placeholder="name@email.com" /></div>
-              <div><label>Customer Phone</label><input data-k="job.phone" inputmode="tel" placeholder="###-###-####" /></div>
+              <div><label>Customer Email (optional)</label><input data-k="job.email" inputmode="email" placeholder="name@email.com" /></div>
+              <div><label>Customer Phone (optional)</label><input data-k="job.phone" inputmode="tel" placeholder="###-###-####" /></div>
             </div>
             <div class="row three">
               <div><label>Date</label><input data-k="job.date" type="date" /></div>
@@ -364,7 +360,7 @@
               <div><label>Gallons</label><input data-k="job.gallons" inputmode="numeric" placeholder="e.g., 12832" /></div>
               <div><label>Weather / Notes</label><input data-k="job.weather" placeholder="Sunny / cloudy / etc." /></div>
             </div>
-            <span class="pill">Report image is generated from the <b>text template</b> (no form boxes).</span>
+            <span class="pill">Report exports from the <b>text template</b> and is captured at <b>1400px wide</b>.</span>
           </div>
         </div>
 
@@ -515,7 +511,7 @@
         </div>
 
         <div class="card">
-          <h2>Report Preview <span class="sub">Text template (this is what exports)</span></h2>
+          <h2>Report Preview <span class="sub">This is exactly what gets shared</span></h2>
           <div class="reportWrap">
             <div class="reportPreview" id="reportArea">
               <div class="reportHeader">
@@ -577,12 +573,12 @@
               </div>
 
               <div class="small" style="margin-top:10px; opacity:.85;">
-                Thank you for choosing BF Outdoor Services.
+                As always, thank you for choosing BF Outdoor Services.
               </div>
             </div>
 
             <div class="divider"></div>
-            <div class="small">Tip: On phones, <b>Share Report</b> opens Messages/Mail with the report image attached.</div>
+            <div class="small"><b>Share Report</b> will use your exact text message + attach the report image.</div>
           </div>
         </div>
       </div>
@@ -632,16 +628,10 @@
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
   <script>
-    /***********************
-     * Storage keys
-     ***********************/
-    const KEY_TASKS   = "bf_pm_tasks_v1";
-    const KEY_HISTORY = "bf_pm_history_v1";
-    const KEY_DRAFT   = "bf_pm_draft_v1";
+    const KEY_TASKS   = "bf_pm_tasks_v2";
+    const KEY_HISTORY = "bf_pm_history_v2";
+    const KEY_DRAFT   = "bf_pm_draft_v2";
 
-    /***********************
-     * Default tasks
-     ***********************/
     const DEFAULT_TASKS = {
       cleaning: [
         { title:"Skim surface", help:"Remove leaves/debris from surface." },
@@ -670,12 +660,8 @@
       ]
     };
 
-    /***********************
-     * Helpers
-     ***********************/
     const $ = (sel, el=document) => el.querySelector(sel);
     const $$ = (sel, el=document) => Array.from(el.querySelectorAll(sel));
-
     function deepClone(o){ return JSON.parse(JSON.stringify(o)); }
 
     function setByPath(obj, path, val){
@@ -697,6 +683,12 @@
       return cur ?? "";
     }
 
+    function escapeHTML(s){
+      return String(s ?? "")
+        .replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;").replaceAll("'","&#039;");
+    }
+
     function pad(n){ return String(n).padStart(2,"0"); }
     function fmtDate(d){ return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`; }
     function fmtTime(d){ return `${pad(d.getHours())}:${pad(d.getMinutes())}`; }
@@ -708,13 +700,7 @@
         .replaceAll(/^_+|_+$/g,"")
         .slice(0,60) || "Customer";
     }
-    function normalizePhone(p){
-      return (p||"").toString().replaceAll(/[^\d+]/g,""); // keep digits and +
-    }
 
-    /***********************
-     * Tasks (load/save/render)
-     ***********************/
     function loadTasks(){
       const raw = localStorage.getItem(KEY_TASKS);
       if(!raw) return deepClone(DEFAULT_TASKS);
@@ -727,11 +713,9 @@
       }
     }
     function saveTasks(tasks){ localStorage.setItem(KEY_TASKS, JSON.stringify(tasks)); }
-
     let TASKS = loadTasks();
 
     function slugKey(section, idx){ return `task.${section}.${idx}`; }
-
     function renderList(containerId, sectionName, items){
       const wrap = document.getElementById(containerId);
       wrap.innerHTML = "";
@@ -767,15 +751,6 @@
       });
     }
 
-    function escapeHTML(s){
-      return String(s ?? "")
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
-    }
-
     function renderAll(){
       renderList("cleaningList","cleaning", TASKS.cleaning);
       renderList("equipmentList","equipment", TASKS.equipment);
@@ -783,28 +758,21 @@
       syncReport();
     }
 
-    /***********************
-     * Photos
-     ***********************/
+    // Photos
     const PHOTO = { before:"", after:"" };
-
     async function fileToDataUrl(file, maxDim=1600, quality=0.86){
       const bmp = await createImageBitmap(file);
       let { width, height } = bmp;
       const scale = Math.min(1, maxDim / Math.max(width, height));
       width = Math.round(width * scale);
       height = Math.round(height * scale);
-
       const c = document.createElement("canvas");
       c.width = width; c.height = height;
       c.getContext("2d").drawImage(bmp, 0, 0, width, height);
       return c.toDataURL("image/jpeg", quality);
     }
-
     function setPhoto(which, dataUrl){
       PHOTO[which] = dataUrl || "";
-
-      // left previews
       const img = document.getElementById(which + "Img");
       const ph  = document.getElementById(which + "Ph");
       if(PHOTO[which]){
@@ -812,8 +780,6 @@
       }else{
         img.removeAttribute("src"); img.style.display="none"; ph.style.display="block";
       }
-
-      // report previews
       const rImg = document.getElementById("rp" + (which==="before"?"Before":"After") + "Img");
       const rPh  = document.getElementById("rp" + (which==="before"?"Before":"After") + "Ph");
       if(PHOTO[which]){
@@ -821,10 +787,8 @@
       }else{
         rImg.removeAttribute("src"); rImg.style.display="none"; rPh.style.display="block";
       }
-
       syncReport();
     }
-
     $("#beforeFile").addEventListener("change", async (e)=>{
       const f=e.target.files?.[0]; if(!f) return;
       setPhoto("before", await fileToDataUrl(f));
@@ -838,11 +802,8 @@
     $("#beforeClear").addEventListener("click", ()=> setPhoto("before",""));
     $("#afterClear").addEventListener("click", ()=> setPhoto("after",""));
 
-    /***********************
-     * Chemicals table
-     ***********************/
+    // Chemicals
     const chemBody = $("#chemTable tbody");
-
     function addChemRow(row={product:"",amount:"",unit:"",notes:""}){
       const tr = document.createElement("tr");
       tr.innerHTML = `
@@ -857,79 +818,63 @@
       `;
       chemBody.appendChild(tr);
     }
-
     $("#chemAdd").addEventListener("click", ()=>{ addChemRow(); syncReport(); });
     $("#chemClear").addEventListener("click", ()=>{
       if(confirm("Clear all chemical rows?")){
-        chemBody.innerHTML="";
-        addChemRow();
-        syncReport();
+        chemBody.innerHTML=""; addChemRow(); syncReport();
       }
     });
     addChemRow();
 
-    /***********************
-     * Data collection/apply
-     ***********************/
+    // Data collect/apply
     function collect(){
-      const data = { version:1, ts: Date.now(), tasks: TASKS, photos: {before:PHOTO.before, after:PHOTO.after} };
-
+      const data = { version:2, ts: Date.now(), tasks: TASKS, photos: {before:PHOTO.before, after:PHOTO.after} };
       $$("[data-k]").forEach(el=>{
         const key = el.getAttribute("data-k");
         const val = (el.type === "checkbox") ? !!el.checked : (el.value ?? "");
         setByPath(data, key, val);
       });
-
-      const chems = [];
+      const chems=[];
       $$("#chemTable tbody tr").forEach(tr=>{
-        const r = {};
+        const r={};
         $$("[data-chem]", tr).forEach(inp=>{
           r[inp.getAttribute("data-chem")] = inp.value ?? "";
         });
         const any = (r.product||"").trim() || (r.amount||"").trim() || (r.notes||"").trim();
         if(any) chems.push(r);
       });
-      data.chems = chems;
-
+      data.chems=chems;
       return data;
     }
-
     function apply(data){
       if(data?.tasks?.cleaning && data?.tasks?.equipment && data?.tasks?.visual){
         TASKS = data.tasks;
         saveTasks(TASKS);
       }
       renderAll();
-
       $$("[data-k]").forEach(el=>{
         const key = el.getAttribute("data-k");
         const val = getByPath(data, key);
         if(el.type === "checkbox") el.checked = !!val;
         else el.value = val ?? "";
       });
-
       chemBody.innerHTML="";
       if(Array.isArray(data.chems) && data.chems.length) data.chems.forEach(r=>addChemRow(r));
       else addChemRow();
-
       setPhoto("before", data.photos?.before || "");
       setPhoto("after",  data.photos?.after  || "");
-
       syncReport();
     }
 
-    /***********************
-     * Report template (TEXT ONLY)
-     ***********************/
+    // Report template
     function checkedTaskList(){
-      const titles = [];
+      const titles=[];
       $$('.checklist input[type="checkbox"][data-task="1"]:checked').forEach(cb=>{
         const t = cb.closest(".item")?.querySelector(".itemTitle");
         if(t) titles.push(t.textContent.trim());
       });
       return titles;
     }
-
     function chemicalsSummary(data){
       if(!Array.isArray(data.chems) || !data.chems.length) return "—";
       return data.chems.map(r=>{
@@ -942,7 +887,6 @@
         return notes ? `${main} (${notes})` : main;
       }).join("\n");
     }
-
     function issuesSummary(data){
       const pr = (getByPath(data,"issues.priority")||"").trim() || "—";
       const est = (getByPath(data,"issues.estimate")||"").trim();
@@ -967,15 +911,13 @@
       $("#rpTag").textContent = `${cust} • ${date}`;
       $("#rpMeta").textContent = `Generated ${fmtWhen(Date.now())}`;
 
-      const custBlock =
+      $("#rpCustomer").textContent =
 `Customer: ${cust}
 Address: ${addr}
 Date/Time: ${date}${time?` ${time}`:""}
 Technician: ${tech}${poolType?`\nPool Type: ${poolType}`:""}${gallons?`\nGallons: ${gallons}`:""}${weather?`\nWeather/Notes: ${weather}`:""}`;
 
-      $("#rpCustomer").textContent = custBlock;
-
-      const waterBlock =
+      $("#rpWater").textContent =
 `FC: ${getByPath(data,"water.fc")||"—"}    CC: ${getByPath(data,"water.cc")||"—"}    pH: ${getByPath(data,"water.ph")||"—"}
 TA: ${getByPath(data,"water.ta")||"—"}    CH: ${getByPath(data,"water.ch")||"—"}    CYA: ${getByPath(data,"water.cya")||"—"}
 Salt: ${getByPath(data,"water.salt")||"—"}    Temp: ${getByPath(data,"water.temp")||"—"}    Phos: ${getByPath(data,"water.phos")||"—"}
@@ -983,33 +925,27 @@ Salt: ${getByPath(data,"water.salt")||"—"}    Temp: ${getByPath(data,"water.te
 Adjustments Made:
 ${(getByPath(data,"water.adjustments")||"").trim() || "—"}`;
 
-      $("#rpWater").textContent = waterBlock;
-
       const tasks = checkedTaskList();
       $("#rpTasks").textContent = tasks.length ? tasks.map(t=>`• ${t}`).join("\n") : "—";
 
       $("#rpChems").textContent = chemicalsSummary(data);
       $("#rpIssues").textContent = issuesSummary(data);
 
-      $("#rpNotes").textContent = ((getByPath(data,"customer.summary")||"").trim() || "—") +
-        `\n\nSignature: ${((getByPath(data,"customer.signature")||"").trim() || "—")}` +
-        `\nCustomer Acknowledgement: ${((getByPath(data,"customer.ack")||"").trim() || "—")}`;
+      $("#rpNotes").textContent =
+`${((getByPath(data,"customer.summary")||"").trim() || "—")}
+\n\nSignature: ${((getByPath(data,"customer.signature")||"").trim() || "—")}
+Customer Acknowledgement: ${((getByPath(data,"customer.ack")||"").trim() || "—")}`;
 
-      // Save draft
       localStorage.setItem(KEY_DRAFT, JSON.stringify(data));
     }
 
-    /***********************
-     * History
-     ***********************/
+    // History
     function loadHistory(){
       const raw = localStorage.getItem(KEY_HISTORY);
       if(!raw) return [];
-      try{ const arr = JSON.parse(raw); return Array.isArray(arr) ? arr : []; }
-      catch{ return []; }
+      try{ const arr = JSON.parse(raw); return Array.isArray(arr) ? arr : []; }catch{ return []; }
     }
     function saveHistory(arr){ localStorage.setItem(KEY_HISTORY, JSON.stringify(arr)); }
-
     let HISTORY = loadHistory();
     let ACTIVE_ID = null;
 
@@ -1024,7 +960,6 @@ ${(getByPath(data,"water.adjustments")||"").trim() || "—"}`;
       const when = fmtWhen(rec.ts || Date.now());
       return `${when} • ${tech} • ${addr}`;
     }
-
     function renderHistory(){
       const q = ($("#histSearch").value || "").trim().toLowerCase();
       const list = $("#histList");
@@ -1073,31 +1008,24 @@ ${(getByPath(data,"water.adjustments")||"").trim() || "—"}`;
         list.appendChild(item);
       });
     }
-
     function upsertRecord(rec){
       const idx = HISTORY.findIndex(r=>r.id===rec.id);
-      if(idx>=0) HISTORY[idx]=rec;
-      else HISTORY.push(rec);
-
-      if(HISTORY.length > 200){
+      if(idx>=0) HISTORY[idx]=rec; else HISTORY.push(rec);
+      if(HISTORY.length>200){
         HISTORY = HISTORY.sort((a,b)=>(b.ts||0)-(a.ts||0)).slice(0,200);
       }
-
       saveHistory(HISTORY);
       renderHistory();
     }
-
     function finishVisit(){
       const data = collect();
       const cust = (getByPath(data,"job.customer")||"").trim();
       const date = (getByPath(data,"job.date")||"").trim();
       const tech = (getByPath(data,"job.tech")||"").trim();
-
       if(!cust || !date || !tech){
         const ok = confirm("Customer, Date, or Tech is blank. Save record anyway?");
         if(!ok) return;
       }
-
       const now = Date.now();
       const rec = { ...data, id:`rec_${now}_${Math.random().toString(16).slice(2)}`, ts: now };
       upsertRecord(rec);
@@ -1108,23 +1036,16 @@ ${(getByPath(data,"water.adjustments")||"").trim() || "—"}`;
       if(goNext) newVisit();
       else renderHistory();
     }
-
     function newVisit(){
-      $$("[data-k]").forEach(el=>{
-        if(el.type==="checkbox") el.checked=false;
-        else el.value="";
-      });
-      chemBody.innerHTML="";
-      addChemRow();
-      setPhoto("before","");
-      setPhoto("after","");
+      $$("[data-k]").forEach(el=>{ if(el.type==="checkbox") el.checked=false; else el.value=""; });
+      chemBody.innerHTML=""; addChemRow();
+      setPhoto("before",""); setPhoto("after","");
       setDefaults();
       ACTIVE_ID=null;
       syncReport();
       renderHistory();
       toast("Ready for next visit.");
     }
-
     function openRecord(id){
       const rec = HISTORY.find(r=>r.id===id);
       if(!rec) return;
@@ -1154,18 +1075,16 @@ ${(getByPath(data,"water.adjustments")||"").trim() || "—"}`;
       upsertRecord(copy);
       toast("Record duplicated.");
     }
-
-    $("#histList").addEventListener("click", (e)=>{
+    $("#histList").addEventListener("click",(e)=>{
       const btn = e.target.closest("button[data-act]");
       if(!btn) return;
       const act = btn.getAttribute("data-act");
       const id  = btn.getAttribute("data-id");
       if(act==="open") openRecord(id);
-      if(act==="del")  deleteRecord(id);
-      if(act==="dup")  duplicateRecord(id);
+      if(act==="dup") duplicateRecord(id);
+      if(act==="del") deleteRecord(id);
     });
     $("#histSearch").addEventListener("input", renderHistory);
-
     $("#btnClearHistory").addEventListener("click", ()=>{
       const ok = confirm("Clear ALL saved history on this device?");
       if(!ok) return;
@@ -1175,9 +1094,7 @@ ${(getByPath(data,"water.adjustments")||"").trim() || "—"}`;
       toast("History cleared.");
     });
 
-    /***********************
-     * Export/Import JSON
-     ***********************/
+    // Export / Import
     function exportJSON(){
       const payload = { exportedAt: Date.now(), tasks: TASKS, history: HISTORY };
       const filename = `BF_PM_HISTORY_${fmtDate(new Date())}.json`;
@@ -1188,25 +1105,20 @@ ${(getByPath(data,"water.adjustments")||"").trim() || "—"}`;
       document.body.appendChild(a); a.click(); a.remove();
       URL.revokeObjectURL(url);
     }
-
     async function importJSON(file){
       try{
         const payload = JSON.parse(await file.text());
         if(payload.tasks){ TASKS = payload.tasks; saveTasks(TASKS); }
         if(Array.isArray(payload.history)){ HISTORY = payload.history; saveHistory(HISTORY); }
-        renderAll();
-        renderHistory();
+        renderAll(); renderHistory();
         toast("Imported tasks + history.");
       }catch{
         alert("Could not import that file.");
       }
     }
 
-    /***********************
-     * Report image capture (WIDE + RELIABLE)
-     ***********************/
+    // Capture report image (wide + reliable)
     async function captureReportBlob(){
-      // ensure report is current
       syncReport();
 
       const source = document.getElementById("reportArea");
@@ -1214,12 +1126,10 @@ ${(getByPath(data,"water.adjustments")||"").trim() || "—"}`;
       host.className = "exportHost";
       document.body.appendChild(host);
 
-      // clone the report (it's already text-only)
       const clone = source.cloneNode(true);
       host.appendChild(clone);
 
-      // wait for images to paint
-      await new Promise(r=>setTimeout(r, 80));
+      await new Promise(r=>setTimeout(r, 90));
 
       const canvas = await html2canvas(clone, {
         backgroundColor: null,
@@ -1234,113 +1144,47 @@ ${(getByPath(data,"water.adjustments")||"").trim() || "—"}`;
       });
     }
 
-    async function downloadReportImage(){
-      const data = collect();
-      const customer = safeFileName(getByPath(data,"job.customer"));
-      const date = getByPath(data,"job.date") || fmtDate(new Date());
-      const filename = `BF_Pool_Report_${customer}_${date}.png`;
-      try{
-        const blob = await captureReportBlob();
-        const url = URL.createObjectURL(blob);
-        const a=document.createElement("a");
-        a.href=url; a.download=filename;
-        document.body.appendChild(a); a.click(); a.remove();
-        URL.revokeObjectURL(url);
-        toast("Downloaded report image.");
-      }catch{
-        alert("Could not create report image.");
-      }
-    }
-
+    // ✅ Share Report with your exact message
     async function shareReport(){
       const data = collect();
+      const date = (getByPath(data,"job.date")||"").trim() || fmtDate(new Date());
       const customerRaw = getByPath(data,"job.customer") || "Customer";
       const customer = safeFileName(customerRaw);
-      const date = getByPath(data,"job.date") || fmtDate(new Date());
       const filename = `BF_Pool_Report_${customer}_${date}.png`;
 
-      const tasks = checkedTaskList();
-      const summaryText =
-`BF Outdoor Services - Pool Service Report
-Customer: ${customerRaw}
+      const message =
+`BF Outdoor Services • Pool Maintenance Report
 Date: ${date}
-Completed Tasks: ${tasks.length ? tasks.join(", ") : "—"}`;
+
+Please review the attached report from today’s service, and as always thank you for choosing BF Outdoor Services.`;
 
       try{
         const blob = await captureReportBlob();
         const file = new File([blob], filename, { type:"image/png" });
 
         if(navigator.canShare && navigator.canShare({ files:[file] }) && navigator.share){
-          await navigator.share({ title:"Pool Service Report", text: summaryText, files:[file] });
+          await navigator.share({
+            title: "Pool Maintenance Report",
+            text: message,
+            files: [file]
+          });
           toast("Share sheet opened.");
           return;
         }
 
-        await downloadReportImage();
-        alert("Sharing files isn’t supported on this device/browser. The report was downloaded instead — share it from Photos/Files.");
+        // fallback: download (rare on mobile; common on desktop)
+        const url = URL.createObjectURL(blob);
+        const a=document.createElement("a");
+        a.href=url; a.download=filename;
+        document.body.appendChild(a); a.click(); a.remove();
+        URL.revokeObjectURL(url);
+        alert("This browser can’t share files. The report image was downloaded instead.");
       }catch{
         toast("Share canceled or unavailable.");
       }
     }
 
-    /***********************
-     * Compose Email/Text (prefill)
-     ***********************/
-    function buildMessageText(){
-      const data = collect();
-      const customer = getByPath(data,"job.customer") || "Customer";
-      const date = getByPath(data,"job.date") || fmtDate(new Date());
-      const addr = getByPath(data,"job.address") || "";
-      const tech = getByPath(data,"job.tech") || "";
-
-      const tasks = checkedTaskList();
-      const taskLines = tasks.length ? tasks.map(t=>`- ${t}`).join("\n") : "- —";
-
-      return `Hi ${customer},
-
-Here is your BF Outdoor Services pool service update for ${date}.
-${addr ? "Address: " + addr + "\n" : ""}${tech ? "Technician: " + tech + "\n" : ""}
-
-Completed tasks:
-${taskLines}
-
-Chemicals added:
-${chemicalsSummary(collect())}
-
-Issues / recommendations:
-${issuesSummary(collect())}
-
-Notes:
-${(getByPath(collect(),"customer.summary")||"").trim() || "—"}
-
-Thank you,
-BF Outdoor Services`;
-    }
-
-    function composeEmail(){
-      const data = collect();
-      const to = (getByPath(data,"job.email")||"").trim();
-      if(!to){ alert("No customer email entered."); return; }
-      const date = getByPath(data,"job.date") || fmtDate(new Date());
-      const customer = getByPath(data,"job.customer") || "Customer";
-      const subject = `Pool Service Report - ${customer} - ${date}`;
-      const body = buildMessageText();
-      window.location.href = `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    }
-
-    function composeText(){
-      const data = collect();
-      const toRaw = (getByPath(data,"job.phone")||"").trim();
-      if(!toRaw){ alert("No customer phone entered."); return; }
-      const to = normalizePhone(toRaw);
-      const date = getByPath(data,"job.date") || fmtDate(new Date());
-      const msg = `BF Outdoor Services Pool Report (${date}) — I’m sending your report image now.`;
-      window.location.href = `sms:${encodeURIComponent(to)}?&body=${encodeURIComponent(msg)}`;
-    }
-
-    /***********************
-     * Defaults / Reset / Toast
-     ***********************/
+    // Defaults / Reset / Toast
     function setDefaults(){
       const dateEl = document.querySelector('[data-k="job.date"]');
       const timeEl = document.querySelector('[data-k="job.time"]');
@@ -1348,12 +1192,10 @@ BF Outdoor Services`;
       if(dateEl && !dateEl.value) dateEl.value = fmtDate(now);
       if(timeEl && !timeEl.value) timeEl.value = fmtTime(now);
     }
-
     function resetAll(){
       if(!confirm("Reset current form? (History stays)")) return;
       newVisit();
     }
-
     let toastTimer=null;
     function toast(msg){
       clearTimeout(toastTimer);
@@ -1381,9 +1223,7 @@ BF Outdoor Services`;
       toastTimer=setTimeout(()=>{ t.style.opacity="0"; }, 2200);
     }
 
-    /***********************
-     * Customize modal
-     ***********************/
+    // Customize modal
     const modal = $("#modalBackdrop");
     const editCleaning  = $("#editCleaning");
     const editEquipment = $("#editEquipment");
@@ -1427,7 +1267,6 @@ BF Outdoor Services`;
       if(!newTasks.cleaning.length)  return alert("Cleaning tasks can't be empty.");
       if(!newTasks.equipment.length) return alert("Equipment tasks can't be empty.");
       if(!newTasks.visual.length)    return alert("Visual tasks can't be empty.");
-
       TASKS=newTasks;
       saveTasks(TASKS);
       renderAll();
@@ -1441,12 +1280,9 @@ BF Outdoor Services`;
       renderAll();
       toast("Tasks reset.");
     }
-
     modal.addEventListener("click",(e)=>{ if(e.target===modal) closeModal(); });
 
-    /***********************
-     * Wire up events
-     ***********************/
+    // Wire events
     $("#btnCustomize").addEventListener("click", openModal);
     $("#btnCloseModal").addEventListener("click", closeModal);
     $("#btnSaveTasks").addEventListener("click", saveTasksFromEditor);
@@ -1454,11 +1290,7 @@ BF Outdoor Services`;
 
     $("#btnNewVisit").addEventListener("click", newVisit);
     $("#btnFinish").addEventListener("click", finishVisit);
-
     $("#btnShare").addEventListener("click", shareReport);
-    $("#btnEmail").addEventListener("click", composeEmail);
-    $("#btnText").addEventListener("click", composeText);
-    $("#btnDownload").addEventListener("click", downloadReportImage);
 
     $("#btnExport").addEventListener("click", exportJSON);
     $("#importFile").addEventListener("change", async (e)=>{
@@ -1466,21 +1298,13 @@ BF Outdoor Services`;
       if(f) await importJSON(f);
       e.target.value="";
     });
-
     $("#btnResetAll").addEventListener("click", resetAll);
-    $("#histSearch").addEventListener("input", renderHistory);
 
-    // live updates
-    document.addEventListener("input",(e)=>{
-      if(e.target.matches("[data-k],[data-chem]")) syncReport();
-    });
-    document.addEventListener("change",(e)=>{
-      if(e.target.matches("[data-k],[data-chem]")) syncReport();
-    });
+    // Live updates
+    document.addEventListener("input",(e)=>{ if(e.target.matches("[data-k],[data-chem]")) syncReport(); });
+    document.addEventListener("change",(e)=>{ if(e.target.matches("[data-k],[data-chem]")) syncReport(); });
 
-    /***********************
-     * Init
-     ***********************/
+    // Init
     function init(){
       setDefaults();
       renderAll();
@@ -1489,14 +1313,10 @@ BF Outdoor Services`;
       if(draftRaw){
         try{ apply(JSON.parse(draftRaw)); }catch{}
       }else{
-        setPhoto("before","");
-        setPhoto("after","");
-        syncReport();
+        setPhoto("before",""); setPhoto("after",""); syncReport();
       }
-
       renderHistory();
     }
-
     init();
   </script>
 </body>
