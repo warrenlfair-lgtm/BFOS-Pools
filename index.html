@@ -8,7 +8,6 @@
   <style>
     :root{
       --bg:#0b1220;
-      --card:#121b2e;
       --line:rgba(255,255,255,.12);
       --text:#eef2ff;
       --muted:rgba(238,242,255,.72);
@@ -271,7 +270,7 @@
         <div class="mark" title="BF Outdoor Services">BF</div>
         <div class="title">
           <h1>Pool Maintenance Checklist</h1>
-          <p>Tasks are editable inline • Share Report sends your exact message + attaches report image</p>
+          <p>Tasks editable inline • “Needs Attention” auto-populates Issues</p>
         </div>
       </div>
 
@@ -413,7 +412,7 @@
         </div>
 
         <div class="card">
-          <h2>7) Issues / Recommendations <span class="sub">Repairs needed + priority</span></h2>
+          <h2>7) Issues / Recommendations <span class="sub">Auto-filled from “Needs Attention” + your notes</span></h2>
           <div class="content">
             <div class="row two">
               <div>
@@ -428,7 +427,13 @@
               </div>
               <div><label>Estimated Cost Range (opt)</label><input data-k="issues.estimate" placeholder="e.g., $150–$300" /></div>
             </div>
-            <div><label>Issues Found / Recommendations</label><textarea data-k="issues.notes" placeholder="Describe issues, suspected cause, recommended next steps…"></textarea></div>
+            <div>
+              <label>Issues Found / Recommendations</label>
+              <textarea data-k="issues.notes" placeholder="Type any manual notes here… AUTO section will appear below."></textarea>
+              <div class="small" style="margin-top:8px;">
+                Tip: Mark any task “Needs Attention” and it will automatically populate below.
+              </div>
+            </div>
           </div>
         </div>
 
@@ -547,16 +552,10 @@
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
   <script>
-    /***********************
-     * Storage keys
-     ***********************/
-    const KEY_TASKS   = "bf_pm_tasks_v3";
-    const KEY_HISTORY = "bf_pm_history_v3";
-    const KEY_DRAFT   = "bf_pm_draft_v3";
+    const KEY_TASKS   = "bf_pm_tasks_v4";
+    const KEY_HISTORY = "bf_pm_history_v4";
+    const KEY_DRAFT   = "bf_pm_draft_v4";
 
-    /***********************
-     * Default tasks
-     ***********************/
     const DEFAULT_TASKS = {
       cleaning: [
         { title:"Skim surface", help:"Remove leaves/debris from surface." },
@@ -585,9 +584,6 @@
       ]
     };
 
-    /***********************
-     * Helpers
-     ***********************/
     const $ = (sel, el=document) => el.querySelector(sel);
     const $$ = (sel, el=document) => Array.from(el.querySelectorAll(sel));
     function deepClone(o){ return JSON.parse(JSON.stringify(o)); }
@@ -626,9 +622,6 @@
         .slice(0,60) || "Customer";
     }
 
-    /***********************
-     * Tasks (editable)
-     ***********************/
     function loadTasks(){
       const raw = localStorage.getItem(KEY_TASKS);
       if(!raw) return deepClone(DEFAULT_TASKS);
@@ -641,7 +634,6 @@
       }
     }
     function saveTasks(tasks){ localStorage.setItem(KEY_TASKS, JSON.stringify(tasks)); }
-
     let TASKS = loadTasks();
 
     function slugKey(section, idx){ return `task.${section}.${idx}`; }
@@ -652,7 +644,6 @@
 
       items.forEach((it, idx)=>{
         const baseKey = slugKey(sectionName, idx);
-
         const el = document.createElement("div");
         el.className = "item";
         el.innerHTML = `
@@ -762,6 +753,33 @@
       syncReport();
     }
 
+    // ✅ Build AUTO issues from tasks marked "Needs Attention"
+    function buildAutoIssuesFromTasks(){
+      const lines = [];
+      const sections = [
+        { name:"Cleaning",  key:"cleaning" },
+        { name:"Equipment", key:"equipment" },
+        { name:"Visual",    key:"visual" }
+      ];
+
+      sections.forEach(sec=>{
+        const items = TASKS[sec.key] || [];
+        items.forEach((t, idx)=>{
+          const statusSel = document.querySelector(`[data-k="task.${sec.key}.${idx}.status"]`);
+          if(!statusSel) return;
+          if((statusSel.value || "").trim() !== "Needs Attention") return;
+
+          const noteEl = document.querySelector(`[data-k="task.${sec.key}.${idx}.note"]`);
+          const note = (noteEl?.value || "").trim();
+
+          lines.push(`- [${sec.name}] ${t.title}${note ? ` — ${note}` : ""}`);
+        });
+      });
+
+      if(!lines.length) return "";
+      return `AUTO (Needs Attention)\n${lines.join("\n")}`;
+    }
+
     /***********************
      * Photos
      ***********************/
@@ -838,7 +856,7 @@
      * Collect / Apply
      ***********************/
     function collect(){
-      const data = { version:3, ts: Date.now(), tasks: TASKS, photos: {before:PHOTO.before, after:PHOTO.after} };
+      const data = { version:4, ts: Date.now(), tasks: TASKS, photos: {before:PHOTO.before, after:PHOTO.after} };
       $$("[data-k]").forEach(el=>{
         const key = el.getAttribute("data-k");
         const val = (el.type === "checkbox") ? !!el.checked : (el.value ?? "");
@@ -899,6 +917,7 @@
         return notes ? `${main} (${notes})` : main;
       }).join("\n");
     }
+
     function issuesSummary(data){
       const pr = (getByPath(data,"issues.priority")||"").trim() || "—";
       const est = (getByPath(data,"issues.estimate")||"").trim();
@@ -910,6 +929,30 @@
 
     function syncReport(){
       const data = collect();
+
+      // ✅ AUTO inject Needs Attention items into issues.notes (keeps manual notes above it)
+      const auto = buildAutoIssuesFromTasks();
+      const notesPath = "issues.notes";
+      const current = (getByPath(data, notesPath) || "").toString();
+
+      const startTag = "AUTO (Needs Attention)";
+      let manual = current;
+
+      if(current.includes(startTag)){
+        manual = current.split(startTag)[0].trim();
+      }
+
+      let combined = manual;
+      if(auto){
+        combined = (combined ? combined + "\n\n" : "") + auto;
+      }
+
+      const issuesBox = document.querySelector(`[data-k="${notesPath}"]`);
+      if(issuesBox && issuesBox.value !== combined){
+        issuesBox.value = combined;
+      }
+      setByPath(data, notesPath, combined);
+
       const cust = (getByPath(data,"job.customer")||"").trim() || "—";
       const addr = (getByPath(data,"job.address")||"").trim() || "—";
       const date = (getByPath(data,"job.date")||"").trim() || "—";
