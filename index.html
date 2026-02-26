@@ -33,7 +33,7 @@
     .wrap{max-width:1280px; margin:22px auto; padding:0 14px 44px;}
     .topbar{
       display:flex; gap:14px; align-items:center; justify-content:space-between;
-      padding:14px; border:1px solid var(--line); border-radius:var(--r);
+      padding:14px; border:1px solid var(--line); border-radius:18px;
       background:linear-gradient(180deg, rgba(18,27,46,.92), rgba(15,23,42,.88));
       box-shadow:var(--shadow);
       flex-wrap:wrap;
@@ -88,7 +88,7 @@
     .card{
       border:1px solid var(--line);
       background:linear-gradient(180deg, rgba(18,27,46,.92), rgba(15,23,42,.88));
-      border-radius:var(--r);
+      border-radius:18px;
       box-shadow:var(--shadow);
       overflow:hidden;
     }
@@ -131,12 +131,11 @@
     }
     .inlineBtns{display:flex; gap:8px; flex-wrap:wrap}
 
-    /* Checklist items */
     .checklist{display:grid; grid-template-columns:1fr; gap:10px;}
     .item{
       border:1px solid rgba(255,255,255,.12);
       background:rgba(255,255,255,.04);
-      border-radius:var(--r2);
+      border-radius:14px;
       padding:10px;
     }
     .itemTop{display:flex; gap:10px; align-items:flex-start;}
@@ -146,7 +145,6 @@
     .miniRow{margin-top:8px; display:grid; grid-template-columns:1fr; gap:8px;}
     @media(min-width:680px){ .miniRow.two{grid-template-columns:1fr 1fr} }
 
-    /* Photos */
     .photoGrid{display:grid; grid-template-columns:1fr; gap:10px;}
     @media(min-width:640px){ .photoGrid{grid-template-columns:1fr 1fr;} }
     .photoBox{
@@ -169,7 +167,6 @@
     .thumb img{width:100%; height:100%; object-fit:cover; display:none;}
     .thumb .placeholder{color:rgba(238,242,255,.55); font-size:12px; padding:10px; text-align:center;}
 
-    /* Chemicals */
     .table{
       width:100%;
       border-collapse:collapse;
@@ -192,10 +189,8 @@
     .table tr:last-child td{border-bottom:none}
     .table input,.table select{padding:8px 9px; border-radius:10px;}
 
-    /* Right column */
     .rightCol .card{position:sticky; top:14px}
 
-    /* History */
     .histTop{display:flex; gap:8px; flex-wrap:wrap; align-items:center; justify-content:space-between;}
     .histTop .left{flex:1; min-width:200px;}
     .histList{display:flex; flex-direction:column; gap:8px; margin-top:10px;}
@@ -217,12 +212,11 @@
     }
     .histBtns{display:flex; gap:6px; flex-wrap:wrap; justify-content:flex-end}
 
-    /* Report preview (text-only template) */
     .reportWrap{padding:14px}
     .reportPreview{
       border:1px solid rgba(255,255,255,.12);
       background:linear-gradient(180deg, rgba(18,27,46,.94), rgba(15,23,42,.90));
-      border-radius:var(--r);
+      border-radius:18px;
       padding:18px;
     }
     .reportHeader{
@@ -249,7 +243,6 @@
       color:rgba(238,242,255,.94);
     }
 
-    /* Export host for wide capture (BIGGER) */
     .exportHost{
       position: fixed;
       left: -99999px;
@@ -270,7 +263,7 @@
         <div class="mark" title="BF Outdoor Services">BF</div>
         <div class="title">
           <h1>Pool Maintenance Checklist</h1>
-          <p>Tasks editable inline • “Needs Attention” auto-populates Issues</p>
+          <p>Tasks editable inline • “Needs Attention” auto-populates Issues (with comments)</p>
         </div>
       </div>
 
@@ -286,7 +279,6 @@
     </div>
 
     <div class="grid">
-      <!-- LEFT COLUMN -->
       <div class="leftCol">
         <div class="card">
           <h2>1) Job Info <span class="sub">Customer, site, tech</span></h2>
@@ -348,7 +340,7 @@
           <div class="content">
             <div class="row three">
               <div><label>FC</label><input data-k="water.fc" inputmode="decimal" placeholder="ppm" /></div>
-              <div><label>CC</label><input data-k="water.cc" inputmode="decimal" placeholder="ppm" /></div>
+              <div><label>TC (Total Chlorine)</label><input data-k="water.tc" inputmode="decimal" placeholder="ppm" /></div>
               <div><label>pH</label><input data-k="water.ph" inputmode="decimal" placeholder="e.g., 7.5" /></div>
             </div>
             <div class="row three">
@@ -370,23 +362,17 @@
 
         <div class="card">
           <h2>3) Cleaning <span class="sub">Editable tasks</span></h2>
-          <div class="content">
-            <div class="checklist" id="cleaningList"></div>
-          </div>
+          <div class="content"><div class="checklist" id="cleaningList"></div></div>
         </div>
 
         <div class="card">
           <h2>4) Equipment Check <span class="sub">Editable tasks</span></h2>
-          <div class="content">
-            <div class="checklist" id="equipmentList"></div>
-          </div>
+          <div class="content"><div class="checklist" id="equipmentList"></div></div>
         </div>
 
         <div class="card">
           <h2>5) Visual / Safety <span class="sub">Editable tasks</span></h2>
-          <div class="content">
-            <div class="checklist" id="visualList"></div>
-          </div>
+          <div class="content"><div class="checklist" id="visualList"></div></div>
         </div>
 
         <div class="card">
@@ -431,7 +417,7 @@
               <label>Issues Found / Recommendations</label>
               <textarea data-k="issues.notes" placeholder="Type any manual notes here… AUTO section will appear below."></textarea>
               <div class="small" style="margin-top:8px;">
-                Tip: Mark any task “Needs Attention” and it will automatically populate below.
+                Tip: Mark any task “Needs Attention” and add task notes — both will appear in Issues.
               </div>
             </div>
           </div>
@@ -449,7 +435,6 @@
         </div>
       </div>
 
-      <!-- RIGHT COLUMN -->
       <div class="rightCol">
         <div class="card">
           <h2>Visit History <span class="sub">Saved by Finish Visit</span></h2>
@@ -485,35 +470,12 @@
                 <div class="tag" id="rpMeta">Generated from checklist</div>
               </div>
 
-              <div class="reportBox">
-                <h4>Customer</h4>
-                <div class="reportText" id="rpCustomer"></div>
-              </div>
-
-              <div class="reportBox">
-                <h4>Water Test Results</h4>
-                <div class="reportText" id="rpWater"></div>
-              </div>
-
-              <div class="reportBox">
-                <h4>Completed Tasks (checked only)</h4>
-                <div class="reportText" id="rpTasks"></div>
-              </div>
-
-              <div class="reportBox">
-                <h4>Chemicals Added</h4>
-                <div class="reportText" id="rpChems"></div>
-              </div>
-
-              <div class="reportBox">
-                <h4>Issues / Recommendations</h4>
-                <div class="reportText" id="rpIssues"></div>
-              </div>
-
-              <div class="reportBox">
-                <h4>Customer Notes</h4>
-                <div class="reportText" id="rpNotes"></div>
-              </div>
+              <div class="reportBox"><h4>Customer</h4><div class="reportText" id="rpCustomer"></div></div>
+              <div class="reportBox"><h4>Water Test Results</h4><div class="reportText" id="rpWater"></div></div>
+              <div class="reportBox"><h4>Completed Tasks (checked only)</h4><div class="reportText" id="rpTasks"></div></div>
+              <div class="reportBox"><h4>Chemicals Added</h4><div class="reportText" id="rpChems"></div></div>
+              <div class="reportBox"><h4>Issues / Recommendations</h4><div class="reportText" id="rpIssues"></div></div>
+              <div class="reportBox"><h4>Customer Notes</h4><div class="reportText" id="rpNotes"></div></div>
 
               <div class="reportBox">
                 <h4>Before / After Photos</h4>
@@ -548,13 +510,12 @@
     </div>
   </div>
 
-  <!-- html2canvas -->
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
   <script>
-    const KEY_TASKS   = "bf_pm_tasks_v4";
-    const KEY_HISTORY = "bf_pm_history_v4";
-    const KEY_DRAFT   = "bf_pm_draft_v4";
+    const KEY_TASKS   = "bf_pm_tasks_v5";
+    const KEY_HISTORY = "bf_pm_history_v5";
+    const KEY_DRAFT   = "bf_pm_draft_v5";
 
     const DEFAULT_TASKS = {
       cleaning: [
@@ -753,7 +714,7 @@
       syncReport();
     }
 
-    // ✅ Build AUTO issues from tasks marked "Needs Attention"
+    // ✅ AUTO issues now include the task note/comment so customer sees it
     function buildAutoIssuesFromTasks(){
       const lines = [];
       const sections = [
@@ -772,6 +733,7 @@
           const noteEl = document.querySelector(`[data-k="task.${sec.key}.${idx}.note"]`);
           const note = (noteEl?.value || "").trim();
 
+          // Customer-facing format: include the note if present
           lines.push(`- [${sec.name}] ${t.title}${note ? ` — ${note}` : ""}`);
         });
       });
@@ -780,9 +742,6 @@
       return `AUTO (Needs Attention)\n${lines.join("\n")}`;
     }
 
-    /***********************
-     * Photos
-     ***********************/
     const PHOTO = { before:"", after:"" };
     async function fileToDataUrl(file, maxDim=1600, quality=0.86){
       const bmp = await createImageBitmap(file);
@@ -826,9 +785,6 @@
     $("#beforeClear").addEventListener("click", ()=> setPhoto("before",""));
     $("#afterClear").addEventListener("click", ()=> setPhoto("after",""));
 
-    /***********************
-     * Chemicals
-     ***********************/
     const chemBody = $("#chemTable tbody");
     function addChemRow(row={product:"",amount:"",unit:"",notes:""}){
       const tr = document.createElement("tr");
@@ -852,11 +808,8 @@
     });
     addChemRow();
 
-    /***********************
-     * Collect / Apply
-     ***********************/
     function collect(){
-      const data = { version:4, ts: Date.now(), tasks: TASKS, photos: {before:PHOTO.before, after:PHOTO.after} };
+      const data = { version:5, ts: Date.now(), tasks: TASKS, photos: {before:PHOTO.before, after:PHOTO.after} };
       $$("[data-k]").forEach(el=>{
         const key = el.getAttribute("data-k");
         const val = (el.type === "checkbox") ? !!el.checked : (el.value ?? "");
@@ -894,9 +847,6 @@
       syncReport();
     }
 
-    /***********************
-     * Report template (text-only)
-     ***********************/
     function checkedTaskList(){
       const titles=[];
       $$('.checklist input[type="checkbox"][data-task="1"]:checked').forEach(cb=>{
@@ -930,11 +880,10 @@
     function syncReport(){
       const data = collect();
 
-      // ✅ AUTO inject Needs Attention items into issues.notes (keeps manual notes above it)
+      // AUTO inject Needs Attention items into issues.notes (keeps manual notes above it)
       const auto = buildAutoIssuesFromTasks();
       const notesPath = "issues.notes";
       const current = (getByPath(data, notesPath) || "").toString();
-
       const startTag = "AUTO (Needs Attention)";
       let manual = current;
 
@@ -969,7 +918,7 @@ Date/Time: ${date}${time?` ${time}`:""}
 Technician: ${tech}`;
 
       $("#rpWater").textContent =
-`FC: ${getByPath(data,"water.fc")||"—"}    CC: ${getByPath(data,"water.cc")||"—"}    pH: ${getByPath(data,"water.ph")||"—"}
+`FC: ${getByPath(data,"water.fc")||"—"}    TC: ${getByPath(data,"water.tc")||"—"}    pH: ${getByPath(data,"water.ph")||"—"}
 TA: ${getByPath(data,"water.ta")||"—"}    CH: ${getByPath(data,"water.ch")||"—"}    CYA: ${getByPath(data,"water.cya")||"—"}
 Salt: ${getByPath(data,"water.salt")||"—"}    Temp: ${getByPath(data,"water.temp")||"—"}    Phos: ${getByPath(data,"water.phos")||"—"}
 
@@ -990,9 +939,6 @@ Customer Acknowledgement: ${((getByPath(data,"customer.ack")||"").trim() || "—
       localStorage.setItem(KEY_DRAFT, JSON.stringify(data));
     }
 
-    /***********************
-     * History
-     ***********************/
     function loadHistory(){
       const raw = localStorage.getItem(KEY_HISTORY);
       if(!raw) return [];
@@ -1068,6 +1014,7 @@ Customer Acknowledgement: ${((getByPath(data,"customer.ack")||"").trim() || "—
       renderHistory();
     }
     function finishVisit(){
+      syncReport(); // ensure AUTO issues applied before save
       const data = collect();
       const cust = (getByPath(data,"job.customer")||"").trim();
       const date = (getByPath(data,"job.date")||"").trim();
@@ -1143,9 +1090,6 @@ Customer Acknowledgement: ${((getByPath(data,"customer.ack")||"").trim() || "—
       toast("History cleared.");
     });
 
-    /***********************
-     * Export / Import JSON
-     ***********************/
     function exportJSON(){
       const payload = { exportedAt: Date.now(), tasks: TASKS, history: HISTORY };
       const filename = `BF_PM_HISTORY_${fmtDate(new Date())}.json`;
@@ -1168,9 +1112,6 @@ Customer Acknowledgement: ${((getByPath(data,"customer.ack")||"").trim() || "—
       }
     }
 
-    /***********************
-     * Share report
-     ***********************/
     async function captureReportBlob(){
       syncReport();
       const source = document.getElementById("reportArea");
@@ -1210,7 +1151,6 @@ Please review the attached report from today’s service, and as always thank yo
           return;
         }
 
-        // Fallback: download
         const url = URL.createObjectURL(blob);
         const a=document.createElement("a");
         a.href=url; a.download=filename;
@@ -1222,9 +1162,6 @@ Please review the attached report from today’s service, and as always thank yo
       }
     }
 
-    /***********************
-     * Defaults / Reset / Toast
-     ***********************/
     function setDefaults(){
       const dateEl = document.querySelector('[data-k="job.date"]');
       const timeEl = document.querySelector('[data-k="job.time"]');
@@ -1263,9 +1200,6 @@ Please review the attached report from today’s service, and as always thank yo
       toastTimer=setTimeout(()=>{ t.style.opacity="0"; }, 2200);
     }
 
-    /***********************
-     * Wire up events
-     ***********************/
     $("#btnNewVisit").addEventListener("click", newVisit);
     $("#btnFinish").addEventListener("click", finishVisit);
     $("#btnShare").addEventListener("click", shareReport);
@@ -1277,7 +1211,6 @@ Please review the attached report from today’s service, and as always thank yo
     });
     $("#btnResetAll").addEventListener("click", resetAll);
 
-    // Inline task edit buttons (Edit/Del/+ Add)
     document.addEventListener("click", (e)=>{
       const b = e.target.closest("[data-task-action]");
       if(!b) return;
@@ -1291,24 +1224,18 @@ Please review the attached report from today’s service, and as always thank yo
       if(action === "add")    return addTask(section);
     });
 
-    // Live updates
     document.addEventListener("input",(e)=>{ if(e.target.matches("[data-k],[data-chem]")) syncReport(); });
     document.addEventListener("change",(e)=>{ if(e.target.matches("[data-k],[data-chem]")) syncReport(); });
 
-    /***********************
-     * Init
-     ***********************/
     function init(){
       setDefaults();
       renderAll();
-
       const draftRaw = localStorage.getItem(KEY_DRAFT);
       if(draftRaw){
         try{ apply(JSON.parse(draftRaw)); }catch{}
       }else{
         setPhoto("before",""); setPhoto("after",""); syncReport();
       }
-
       renderHistory();
     }
     init();
